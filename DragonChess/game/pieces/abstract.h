@@ -1,7 +1,13 @@
 #pragma once
+#define MAX_LOADSTRING 100
 #include <string>
 #include "../board/position.h"
 #include "../../resource.h"
+#include "../../DragonChess.h"
+#include "../../renderer/plain/RessourceManager.h"
+
+
+
 namespace game {
 	namespace pieces {
 		class Abstract 
@@ -47,7 +53,7 @@ namespace game {
 			*  @param position sets new position
 			*/
 			void setPosition(::game::board::Position position);
-			//void render();
+			void render();
 
 
 		protected:

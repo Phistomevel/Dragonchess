@@ -1,4 +1,4 @@
-#include "Render.h"
+#include "RessourceManager.h"
 #include <string>
 #include <iostream>
 
@@ -7,47 +7,17 @@
 
 namespace renderer {
 	namespace plain {
-		Render::Render() {}
-		Render::~Render() {}
-		void Render::render(HWND hWnd) {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd,&ps);
-            /*// TODO: Zeichencode, der hdc verwendet, hier einfügen...
-            //@TODO: Move this code somewhere else
-            */
-            
-            if (this->ImageKey.size()==0) {
-                Render::loadImages();
-            }
-            
-            ImageList_Draw(this->ImageKey["Skyboard"], 0, hdc, 0,0, ILD_TRANSPARENT);
+		RessourceManager::RessourceManager() {}
+		RessourceManager::~RessourceManager() {}
+        RessourceManager *RessourceManager::instance()
+        {
+            static RessourceManager INSTANCE;
+            static RessourceManager *ref = &INSTANCE;
+            return ref;
+        }
 
 
-            /*{
-                int i = 0;
-                for (auto item : ImageKey) {
-                    if (item.first!="Skyboard"&& item.first != "Subboard"&& item.first != "Earthboard") {
-                        ImageList_Draw(item.second, 0, hdc, 40 * (i % 2), 40 * (i / 2), ILD_TRANSPARENT);
-                        i++;
-                    }
-                }
-            }
-            {
-                int i = 0;
-                for (auto item : ImageKey) {
-                    if (item.first == "Skyboard" || item.first == "Subboard" || item.first == "Earthboard") {
-                        ImageList_Draw(item.second, 0, hdc, 80+512*(i%2), i/2*380, ILD_TRANSPARENT);
-                        i++;
-                    }
-                }
-            }*/
-            ::game::Board board;
-            board.render(hdc, *this);//fills the stack
-            
-            EndPaint(hWnd, &ps);
-		}
-
-        void Render::loadImages() {
+        void RessourceManager::loadImages() {
             std::string mainAddress= "C:\\Users\\Nils\\source\\repos\\Dragonchess\\Dragonchess\\source\\";
             std::string name[12] = {"Basilisk","Dragon","Griffon","Mage","Oliphant","Sylph","Unicorn","Warrior","Subboard","Skyboard","Earthboard","TEST"};
             std::string color[2] = { "red","blue" };
@@ -68,10 +38,10 @@ namespace renderer {
             }
         }
 
-        void Render::renderSprite(HDC hdc, int x, int y, std::string spriteName) {//ASK:mainImageList abschaffen, stattdessen nur this->MainImageList?
+        void RessourceManager::renderSprite(HDC hdc, int x, int y, std::string spriteName) {//ASK:mainImageList abschaffen, stattdessen nur this->MainImageList?
 
             if (this->ImageKey.size() == 0) {
-                Render::loadImages();
+                RessourceManager::loadImages();
             }
             if (spriteName.find("Undefined")) {//TODO:use abstract::UNDEFINED instead
                 if (ImageList_Draw(this->ImageKey[spriteName], 0, hdc, x, y, ILD_TRANSPARENT)) {
@@ -80,11 +50,18 @@ namespace renderer {
             }
         }
 
-        HIMAGELIST Render::getSprite(std::string spriteName) {
+        HIMAGELIST RessourceManager::getSprite(std::string spriteName) {
             if (this->ImageKey.size() == 0) {
-                Render::loadImages();
+                RessourceManager::loadImages();
             }
             return this->ImageKey[spriteName];
         }
+        void RessourceManager::setHWND(HWND hWNd) {
+            this->hWnd = hWNd;
+        }
+        HWND RessourceManager::getHWND() {
+            return this->hWnd;
+        }
+
 	}
 }

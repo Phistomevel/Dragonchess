@@ -4,15 +4,18 @@
 #include "board/position.h"
 #include "moves.h"
 //include <Windows.h>
-#include "../renderer/plain/Render.h"
-#include "pieces/abstract.h"
-namespace renderer {
+#include "../renderer/plain/RessourceManager.h"
+/*namespace renderer {
 	namespace plain {
 		class Render;
 	}
-}
-
+}*/
 namespace game {
+	namespace pieces {
+		class Abstract;
+	}
+}
+namespace game{
 
 
 	class Board
@@ -24,10 +27,7 @@ namespace game {
 		virtual void movePiece(::game::pieces::Abstract piece, int x, int y, int z);
 		virtual std::vector<::game::Moves> getValidMoves(std::vector<::game::Moves>& moves, ::game::pieces::Abstract piece);
 		virtual std::vector<::game::Moves> getValidCaptures(std::vector<::game::Moves>& moves, ::game::pieces::Abstract piece);
-		virtual void render(
-			HDC hdc,
-			::renderer::plain::Render &renderer
-		);
+		virtual void render();
 	
 	protected:
 		static const int MAX_X = 12;

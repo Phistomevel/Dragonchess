@@ -1,9 +1,9 @@
 #pragma once
-#pragma message("including ::renderer::plain_::Renderer")
+//#pragma message("including ::renderer::plain_::Renderer")
 //#include <windows.h>
-#include "../../game/board.h"
+//#include "../../game/board.h"
 
-
+#include "../../resource.h"
 #include <CommCtrl.h>
 #pragma comment (lib, "comctl32")
 #include <vector>
@@ -11,17 +11,21 @@
 #include <map>
 namespace renderer {
 	namespace plain {
-		class Render
+		class RessourceManager
 		{
 		public:
-			Render();
-			~Render();
-			virtual void render(HWND hWnd);
+			static RessourceManager* instance();
+			~RessourceManager();
+			//virtual void render();
+			virtual void loadImages();
 			virtual void renderSprite(HDC hdc, int x, int y, std::string spriteName);
 			HIMAGELIST getSprite(std::string spriteName);
-			virtual void loadImages();
+			void setHWND(HWND hWnd);
+			HWND getHWND();
 		protected:
 			std::map<std::string, HIMAGELIST> ImageKey = {};
+			HWND hWnd;
+			RessourceManager();
 		};
 	}
 }

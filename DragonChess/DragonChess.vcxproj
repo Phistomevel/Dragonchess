@@ -119,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -155,17 +156,15 @@
     <ClInclude Include="game\moves.h" />
     <ClInclude Include="game\moves\griffon.h" />
     <ClInclude Include="game\moves\dragon.h" />
-    <ClInclude Include="renderer\plain\Render.h" />
+    <ClInclude Include="renderer\plain\RessourceManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="game\moves\sylph.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="game\moves\abstract.cpp" />
     <ClCompile Include="game\moves\capture.cpp" />
-    <ClCompile Include="game\moves\abstract.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
     <ClCompile Include="game\moves\factory.cpp" />
     <ClCompile Include="game\pieces\abstract.cpp" />
     <ClCompile Include="game\board.cpp" />
@@ -176,7 +175,7 @@
     <ClCompile Include="game\moves.cpp" />
     <ClCompile Include="game\moves\griffon.cpp" />
     <ClCompile Include="game\moves\dragon.cpp" />
-    <ClCompile Include="renderer\plain\Render.cpp" />
+    <ClCompile Include="renderer\plain\RessourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DragonChess.rc" />

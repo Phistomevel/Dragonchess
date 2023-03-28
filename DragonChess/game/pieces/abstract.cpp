@@ -4,7 +4,6 @@
 namespace game {
 
 	namespace pieces {
-
 		const std::string Abstract::UNDEFINED = "Undefined";
 		const std::string Abstract::SYLPH     = "Sylph";
 		const std::string Abstract::GRIFFON   = "Griffon";
@@ -29,6 +28,10 @@ namespace game {
 			this->type = Abstract::UNDEFINED;
 			this->color = Abstract::COLOR_BLACK;
 			this->position = game::board::Position(0,0,0);
+			RECT rect = {0,0,40,40};
+			WCHAR szTitle[MAX_LOADSTRING];
+			WCHAR szWindowClass[MAX_LOADSTRING];
+			//this->cView->Create(szTitle,szWindowClass , WS_CHILD, rect, , 1 );
 		}
 
 		Abstract::Abstract(std::string type , std::string color, int x, int y, int z) {
@@ -65,6 +68,14 @@ namespace game {
 		*/
 		void Abstract::setPosition(::game::board::Position position) {
 			this->position = position;
+		}
+
+		void Abstract::render() {
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(this->cView->GetSafeHwnd(), &ps);
+			//get sprite with this->type
+			//draw sprite at this->position
+			EndPaint(this->cView->GetSafeHwnd(), &ps);
 		}
 	}
 }

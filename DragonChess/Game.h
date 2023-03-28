@@ -1,6 +1,6 @@
 #pragma once
 #include "game/board.h"
-#include "renderer/plain/Render.h"
+#include "renderer/plain/RessourceManager.h"
 class Game
 {
 public: 
@@ -11,6 +11,6 @@ public:
 	virtual void onEvent();
 protected:
 	::game::Board board;
-	::renderer::plain::Render renderer;
+	::renderer::plain::RessourceManager renderer;
 };
 

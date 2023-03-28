@@ -53,7 +53,11 @@ namespace game {
 			}
 			return moves;
 		}
-		void Board::render(HDC hdc, ::renderer::plain::Render &renderer) {
+		void Board::render() {
+			::renderer::plain::RessourceManager *RM = (*RM).instance();
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint((*RM).getHWND(), &ps);
+			(*RM).renderSprite(hdc, 0, 0, "Skyboard");
 			(this->field[5][6][2]).setType(pieces::Abstract::DRAGON);
 			(this->field[0][0][2]).setType(pieces::Abstract::GRIFFON);
 			(this->field[1][1][2]).setType(pieces::Abstract::SYLPH);
@@ -72,10 +76,11 @@ namespace game {
 					else {
 						color = "blue";
 					}
-					renderer.renderSprite(hdc,i*42+5,j*42+5,(this->field[i][j][2]).getType()+color);
+					(*RM).renderSprite(hdc,i*42+5,j*42+5,(this->field[i][j][2]).getType()+color);
 					//TODO: make it use the same Renderer?
 					//}
 				}
 			}
+			EndPaint((*RM).getHWND(), &ps);
 		};
 }

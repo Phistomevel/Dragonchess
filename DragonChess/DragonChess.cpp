@@ -3,7 +3,8 @@
 
 #include "framework.h"
 #include "DragonChess.h"
-#include "renderer/plain/Render.h"
+#include "renderer/plain/RessourceManager.h"
+#include "game/board.h"
 //@todo: reinsert, if going to add rendering
 #pragma comment (lib, "comctl32")
 
@@ -21,7 +22,8 @@ ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
-::renderer::plain::Render render;
+::renderer::plain::RessourceManager *RM =  (*RM).instance();// TODO: RM muss referenz auf die static instance sein
+::game::Board board;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -106,6 +108,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
+   (*RM).setHWND(hWnd);
+
+
    if (!hWnd)
    {
       return FALSE;
@@ -150,8 +155,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_PAINT:
         {
-
-        render.render(hWnd);
+        board.render();
         }
         break;
     case WM_DESTROY:

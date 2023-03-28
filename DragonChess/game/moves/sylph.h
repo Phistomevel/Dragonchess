@@ -2,8 +2,7 @@
 #include "abstract.h"
 namespace game {
     namespace moves {
-        class Sylph :
-            public ::game::moves::Abstract
+        class Sylph : public ::game::moves::Abstract
         {
         public:
             Sylph();

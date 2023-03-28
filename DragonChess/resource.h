@@ -3,6 +3,7 @@
 // Verwendet durch DragonChess.rc
 //
 #pragma once
+//#include <Windows.h>
 #include <afxwin.h>
 
 #define IDC_MYICON                      2
