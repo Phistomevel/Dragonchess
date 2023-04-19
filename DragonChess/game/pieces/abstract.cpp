@@ -1,9 +1,13 @@
 #include "abstract.h"
+//IMPLEMENT_DYNCREATE(::game::pieces::Abstract, CView)
 
 
 namespace game {
 
 	namespace pieces {
+
+
+
 		const std::string Abstract::UNDEFINED = "Undefined";
 		const std::string Abstract::SYLPH     = "Sylph";
 		const std::string Abstract::GRIFFON   = "Griffon";
@@ -24,17 +28,16 @@ namespace game {
 		const std::string Abstract::COLOR_WHITE = "White";
 		const std::string Abstract::COLOR_BLACK = "Black";
 
-		Abstract::Abstract() {
+		Abstract::Abstract() 
+		{
 			this->type = Abstract::UNDEFINED;
 			this->color = Abstract::COLOR_BLACK;
 			this->position = game::board::Position(0,0,0);
-			RECT rect = {0,0,40,40};
-			WCHAR szTitle[MAX_LOADSTRING];
-			WCHAR szWindowClass[MAX_LOADSTRING];
 			//this->cView->Create(szTitle,szWindowClass , WS_CHILD, rect, , 1 );
 		}
 
 		Abstract::Abstract(std::string type , std::string color, int x, int y, int z) {
+
 			this->type = type;
 			this->color=color;
 			this->position = game::board::Position(x,y,z);
@@ -71,12 +74,21 @@ namespace game {
 		}
 
 		void Abstract::render() {
+			
+		}
+
+		void Abstract::OnDraw(CDC* pdc)
+		{
 			PAINTSTRUCT ps;
-			HDC hdc = BeginPaint(this->cView->GetSafeHwnd(), &ps);
+			HDC hdc = ::BeginPaint(this->GetSafeHwnd(), &ps);
+			TRACE("HAI!!! omg hai!!! haiii!!! :3:3:3");
 			//get sprite with this->type
 			//draw sprite at this->position
-			EndPaint(this->cView->GetSafeHwnd(), &ps);
+			::EndPaint(this->GetSafeHwnd(), &ps);
+			// TODO: add draw code for native data here
 		}
+
 	}
 }
-
+BEGIN_MESSAGE_MAP(::game::pieces::Abstract, CView)
+END_MESSAGE_MAP()

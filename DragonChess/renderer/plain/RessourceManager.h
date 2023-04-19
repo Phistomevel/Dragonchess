@@ -22,9 +22,12 @@ namespace renderer {
 			HIMAGELIST getSprite(std::string spriteName);
 			void setHWND(HWND hWnd);
 			HWND getHWND();
+			void setRC(LPCWSTR instance);
+			LPCWSTR getRC();
 		protected:
 			std::map<std::string, HIMAGELIST> ImageKey = {};
 			HWND hWnd;
+			LPCWSTR hinstance;
 			RessourceManager();
 		};
 	}

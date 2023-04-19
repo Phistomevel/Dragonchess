@@ -62,6 +62,12 @@ namespace renderer {
         HWND RessourceManager::getHWND() {
             return this->hWnd;
         }
+        void RessourceManager::setRC(LPCWSTR hinstance) {
+            this->hinstance = hinstance;
+        }
+        LPCWSTR RessourceManager::getRC() {
+            return this->hinstance;
+        }
 
 	}
 }

@@ -10,7 +10,7 @@
 
 namespace game {
 	namespace pieces {
-		class Abstract 
+		class AFX_CLASS_EXPORT Abstract : public CView
 		{
 		public:
 			static const std::string UNDEFINED;
@@ -49,6 +49,9 @@ namespace game {
 			 * @return current position
 			 */
 			::game::board::Position getPosition();
+
+			void OnDraw(CDC* pdc) override;
+			//BOOL PreCreateWindow(CREATESTRUCT& cs) override;
 			/*
 			*  @param position sets new position
 			*/
@@ -60,8 +63,7 @@ namespace game {
 			::game::board::Position position;
 			std::string type;
 			std::string color;
-			CView* cView;
+			DECLARE_MESSAGE_MAP()
 		};
 	}
 }
-

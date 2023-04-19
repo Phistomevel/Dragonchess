@@ -47,7 +47,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_DRAGONCHESS));
-
     MSG msg;
 
     // Hauptnachrichtenschleife:
@@ -87,7 +86,8 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_DRAGONCHESS);
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
-
+    afxCurrentInstanceHandle = hInstance;
+    RM->setRC(szWindowClass);
     return RegisterClassExW(&wcex);
 }
 
@@ -107,10 +107,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
    (*RM).setHWND(hWnd);
-
-
    if (!hWnd)
    {
       return FALSE;
@@ -134,6 +131,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    ::renderer::plain::RessourceManager* RM = (*RM).instance();
+    if (hWnd!=RM->getHWND()) {
+        return DefWindowProc(hWnd, message, wParam, lParam);
+    }
     switch (message)
     {
     case WM_COMMAND:
@@ -153,8 +154,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+    case WM_ACTIVATEAPP:
+        {
+        }
+        break;
     case WM_PAINT:
         {
+        board.init();
         board.render();
         }
         break;
@@ -171,6 +177,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     UNREFERENCED_PARAMETER(lParam);
+
     switch (message)
     {
     case WM_INITDIALOG:
