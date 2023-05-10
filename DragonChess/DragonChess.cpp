@@ -129,14 +129,33 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - Ausgeben einer Beendenmeldung und zurückkehren
 //
 //
+
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     ::renderer::plain::RessourceManager* RM = (*RM).instance();
-    if (hWnd!=RM->getHWND()) {
-        return DefWindowProc(hWnd, message, wParam, lParam);
+    if (hWnd == RM->getHWND()) {
+        //DefWindowProc(hWnd, message, wParam, lParam);
+        //return DefWindowProc(hWnd, message, wParam, lParam);
+    }
+    else {
+/*        if (message == WM_SHOWWINDOW) {
+            RM->setHWND(hWnd);
+            board.init();
+        }*/
     }
     switch (message)
     {
+    case WM_GETMINMAXINFO:
+        {
+            if (CWnd::FromHandle(hWnd)== CWnd::FromHandle(RM->getHWND())) {
+                LPMINMAXINFO lpMMI = (LPMINMAXINFO)lParam;
+                lpMMI->ptMinTrackSize.x = 1040;
+                lpMMI->ptMinTrackSize.y = 747;
+            }
+            DefWindowProc(hWnd, message, wParam, lParam);
+        }
+        break;
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -158,12 +177,41 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
         }
         break;
+    /*case WM_SIZE:
+        {
+            
+            //board.onresize();
+            CWnd::FromHandle(hWnd)->Invalidate();
+            DefWindowProc(hWnd, message, wParam, lParam);
+        }
+        break;*/
     case WM_PAINT:
         {
+        if (hWnd== RM->getHWND()) {
+        }
+        //HWND pChild = GetWindow(hWnd,GW_CHILD);
+        //CWnd* childAbstract = game::pieces::Abstract::FromHandle(pChild);
         board.init();
-        board.render();
+        //board.render();
+        
+        DefWindowProc(hWnd, message, wParam, lParam);
         }
         break;
+    case WM_LBUTTONDOWN:
+    {
+
+        POINT point;
+        point.x = GET_X_LPARAM(lParam);
+        point.y = GET_Y_LPARAM(lParam);
+        if (ChildWindowFromPoint(hWnd, point) && CWnd::FromHandle(ChildWindowFromPoint(hWnd,point))!= CWnd::FromHandle(hWnd)){
+            SendMessageW(ChildWindowFromPoint(hWnd, point), message, wParam, lParam);
+        }
+        
+        //TRACE("You thought you clicked a Abstract of a piece.... but it was me! DIO!!!\n");
+
+        DefWindowProc(hWnd, message, wParam, lParam);
+    }
+    break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;

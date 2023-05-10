@@ -3,6 +3,7 @@
 #include "pieces/abstract.h"
 #include "board/position.h"
 #include "moves.h"
+#include "moves/capture.h"
 //include <Windows.h>
 #include "../renderer/plain/RessourceManager.h"
 /*namespace renderer {
@@ -24,9 +25,10 @@ namespace game{
 		Board();
 		~Board();
 		virtual ::game::pieces::Abstract& getPieceByField(int x, int y, int z);
+		void onresize(RECT newsize);
 		virtual void movePiece(::game::pieces::Abstract* piece, int x, int y, int z);
-		virtual std::vector<::game::Moves> getValidMoves(std::vector<::game::Moves>& moves, ::game::pieces::Abstract piece);
-		virtual std::vector<::game::Moves> getValidCaptures(std::vector<::game::Moves>& moves, ::game::pieces::Abstract piece);
+		virtual std::vector<::game::Moves> getValidMoves(::game::pieces::Abstract& piece);
+		virtual std::vector<::game::moves::Capture> getValidCaptures(::game::pieces::Abstract piece);
 		virtual void render();
 		void init();
 	

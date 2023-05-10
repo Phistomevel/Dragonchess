@@ -7,10 +7,9 @@ public:
 	Game();
 	~Game();
 	virtual void run();
-	virtual void render();
-	virtual void onEvent();
+	virtual void onEvent(CView* sender);
 protected:
 	::game::Board board;
-	::renderer::plain::RessourceManager renderer;
+	::game::board::Position ActivePiece;
 };
 

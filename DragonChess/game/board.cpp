@@ -1,5 +1,6 @@
 #include "board.h"
 #include <iostream>
+#include <fstream>
 namespace game {
 		Board::Board() {
 
@@ -21,9 +22,20 @@ namespace game {
 			this->field.clear();
 			*/
 		}
+		void game::Board::onresize(RECT newsize)
+		{
+			for (int i = 0; i < this->MAX_X; i++) {
+				for (int j = 0; j < this->MAX_Y; j++) {
+					for (int k = 0; k < this->MAX_Z; k++) {
+						RECT fieldRect;
+						this->field[i][j][k]->GetClientRect(&fieldRect);
+						this->field[i][j][k]->MoveWindow(fieldRect.left,fieldRect.top,fieldRect.right,fieldRect.bottom);
+					}
+				}
+			}
+		}
 
 		void Board::init() {
-
 			::renderer::plain::RessourceManager* RM = (*RM).instance();
 			CWnd* win = CWnd::FromHandle(RM->getHWND());
 			if (this->isInitialized) {
@@ -43,27 +55,53 @@ namespace game {
 				for (int j = 0; j < this->MAX_Y; j++) {
 					std::vector<::game::pieces::Abstract*> layer;
 					for (int k = 0; k < this->MAX_Z; k++) {
-						layer.push_back(new ::game::pieces::Abstract);
+						
+						layer.push_back(new ::game::pieces::Abstract(::game::pieces::Abstract::UNDEFINED,::game::pieces::Abstract::COLOR_BLACK,i,j,k));
 						//WCHAR szWindowClass = RM->getRC();
+							WCHAR szTitle[MAX_LOADSTRING];
+							RECT cviewDim;
+							HWND hWnd = RM->getHWND();
+							GetWindowRect(RM->getHWND(), &cviewDim);
+							RECT standardViewDim = RECT{ 0, 0, 42, 42 };
+							standardViewDim.right += i * 42 + k%2 * 512 + k/2*256+ 4;
+							standardViewDim.left += i * 42 + k%2 * 512 + k/2 * 256 + 4;
+							standardViewDim.top += j * 42+k/2*-344 + 348;
+							standardViewDim.bottom += j * 42+k / 2 * -344 + 348;
 
-						WCHAR szTitle[MAX_LOADSTRING];
-						RECT cviewDim;
-						HWND hWnd = RM->getHWND();
-						GetWindowRect(RM->getHWND(), &cviewDim);
-						cviewDim.right -= (cviewDim.left + 50);
-						cviewDim.bottom -= (cviewDim.top + 50);
-						cviewDim.top = 0;
-						cviewDim.left = 0;
-						UINT id = k;
-						RM->getRC();
-						layer.at(id)->Create(RM->getRC(),NULL , WS_CHILD || WS_CLIPSIBLINGS, CRect(0,0,1,1), win, id);
-						DWORD errorCode = GetLastError();
-						TRACE("Error code is:%d\n",errorCode);
+							/*cviewDim.right -= (cviewDim.left + 50);
+							cviewDim.bottom -= (cviewDim.top + 50);
+							cviewDim.top = 0;
+							cviewDim.left = 0;*/
+							UINT id = k+10*j+100*i;
+							RM->getRC();
+							layer.at(k)->Create(RM->getRC(), NULL, WS_VISIBLE || WS_CHILD || WS_CLIPSIBLINGS, standardViewDim, win, id);
+							/*layer.at(id)->Detach();
+							layer.at(id)->Attach(win->GetSafeHwnd());*/
+							layer.at(k)->SetParent(win);
+							layer.at(k)->ShowWindow(1);
+							layer.at(k)->EnableWindow();
+							std::string windowname;
+							windowname += "ID:"+ std::to_string(id);
+							layer.at(k)->SetWindowTextW(CA2CT(windowname.c_str()));
+							layer.at(k)->BringWindowToTop();
+							RECT parentWin;
+							RECT childWin;
+							layer.at(k)->GetWindowRect(&childWin);
+							win->GetWindowRect(&parentWin);
+							layer.at(k)->Invalidate();
 					}
 					column.push_back(layer);
 				}
 				this->field.push_back(column);
 			}
+			(this->field.at(5).at(6).at(2))->setType(pieces::Abstract::DRAGON);
+			(this->field.at(0).at(0).at(2))->setType(pieces::Abstract::GRIFFON);
+			(this->field.at(1).at(1).at(2))->setType(pieces::Abstract::SYLPH);
+			(this->field.at(2).at(2).at(2))->setType(pieces::Abstract::GRIFFON);
+			(this->field.at(3).at(3).at(2))->setType(pieces::Abstract::BASILISK);
+			(this->field.at(5).at(5).at(2))->setType(pieces::Abstract::SYLPH);
+			(this->field.at(3).at(3).at(2))->setColor(pieces::Abstract::COLOR_WHITE);
+
 			this->isInitialized = true;
 		}
 
@@ -72,14 +110,17 @@ namespace game {
 		}
 		void Board::movePiece(::game::pieces::Abstract* piece, int x, int y, int z) {
 			game::board::Position currpos = piece->getPosition();
-			this->field.at(x).at(y).at(z) = piece;
+			this->field.at(x).at(y).at(z)->setType(piece->getType());
 			(this->field.at(currpos.x).at(currpos.y).at(currpos.z))->setType(game::pieces::Abstract::UNDEFINED);
 		}
-		std::vector<::game::Moves> Board::getValidMoves(std::vector<::game::Moves>& moves, ::game::pieces::Abstract piece) {
-			return getValid(moves, piece,false);
+		std::vector<::game::Moves> Board::getValidMoves(::game::pieces::Abstract& piece) {
+				//TODO:: factory etablieren, da string in object umwandeln, dann object.getmoves(board*) aufrufen.
+			std::vector<::game::Moves> ret;
+			return ret;
 		}
-		std::vector<::game::Moves> Board::getValidCaptures(std::vector<::game::Moves>& moves, ::game::pieces::Abstract piece) {
-			return getValid(moves, piece, true);
+		std::vector<::game::moves::Capture> Board::getValidCaptures(::game::pieces::Abstract piece) {
+			std::vector<::game::moves::Capture> ret;
+			return ret;
 		}
 
 		const std::vector<game::Moves>& Board::getValid(std::vector<game::Moves>& moves, game::pieces::Abstract& piece, bool isCapture)
@@ -125,7 +166,9 @@ namespace game {
 			::renderer::plain::RessourceManager *RM = (*RM).instance();
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint((*RM).getHWND(), &ps);
-			(*RM).renderSprite(hdc, 0, 0, "Skyboard");
+			(*RM).renderSprite(hdc, 256, 0, "Skyboard");
+			(*RM).renderSprite(hdc, 0, 344, "Earthboard");
+			(*RM).renderSprite(hdc, 512, 344, "Subboard");
 			(this->field.at(5).at(6).at(2))->setType(pieces::Abstract::DRAGON);
 			(this->field.at(0).at(0).at(2))->setType(pieces::Abstract::GRIFFON);
 			(this->field.at(1).at(1).at(2))->setType(pieces::Abstract::SYLPH);
@@ -136,7 +179,6 @@ namespace game {
 			for (int i = 0; i < 12; i++) {
 				for (int j = 0; j < 8; j++) {
 					//for (int k = 0; k < 3; k++) {
-					//TODO:Make universal, for all possible field sizes
 					std::string color = (this->field.at(i).at(j).at(2))->getColor();
 					if (color==game::pieces::Abstract::COLOR_WHITE) {
 						color = "red";
@@ -144,7 +186,7 @@ namespace game {
 					else {
 						color = "blue";
 					}
-					(*RM).renderSprite(hdc,i*42+5,j*42+5,(this->field.at(i).at(j).at(2))->getType()+color);
+					//(*RM).renderSprite(hdc,i*42+5,j*42+5,(this->field.at(i).at(j).at(2))->getType()+color);
 					//TODO: make it use the same Renderer?
 					//}
 				}

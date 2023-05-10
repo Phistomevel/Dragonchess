@@ -5,7 +5,8 @@
 #include "../../resource.h"
 #include "../../DragonChess.h"
 #include "../../renderer/plain/RessourceManager.h"
-
+#include "../../resource.h"
+//#include "../../tools/MessageManager.h"
 
 
 namespace game {
@@ -50,7 +51,11 @@ namespace game {
 			 */
 			::game::board::Position getPosition();
 
-			void OnDraw(CDC* pdc) override;
+			afx_msg void OnDraw(CDC* pdc) override;
+			afx_msg void OnPaint();
+			afx_msg LRESULT OnMyUpdate(WPARAM wParam, LPARAM lParam) ;
+			afx_msg void OnLButtonDown(UINT uint, CPoint point);
+			afx_msg void OnRButtonDown(UINT uint, CPoint point);
 			//BOOL PreCreateWindow(CREATESTRUCT& cs) override;
 			/*
 			*  @param position sets new position
@@ -63,7 +68,10 @@ namespace game {
 			::game::board::Position position;
 			std::string type;
 			std::string color;
+			bool isScelected = false;
+			bool isPetrified = false;
 			DECLARE_MESSAGE_MAP()
+			DECLARE_DYNCREATE(Abstract)
 		};
 	}
 }

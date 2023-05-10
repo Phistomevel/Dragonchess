@@ -156,6 +156,7 @@
     <ClInclude Include="game\moves.h" />
     <ClInclude Include="game\moves\griffon.h" />
     <ClInclude Include="game\moves\dragon.h" />
+    <ClInclude Include="tools\MessageManager.h" />
     <ClInclude Include="renderer\plain\RessourceManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="game\moves\sylph.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="game\moves.cpp" />
     <ClCompile Include="game\moves\griffon.cpp" />
     <ClCompile Include="game\moves\dragon.cpp" />
+    <ClCompile Include="tools\MessageManager.cpp" />
     <ClCompile Include="renderer\plain\RessourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>

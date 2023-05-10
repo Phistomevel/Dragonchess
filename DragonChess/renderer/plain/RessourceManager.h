@@ -20,12 +20,14 @@ namespace renderer {
 			virtual void loadImages();
 			virtual void renderSprite(HDC hdc, int x, int y, std::string spriteName);
 			HIMAGELIST getSprite(std::string spriteName);
+			HBRUSH getBrush(int r, int g, int b);
 			void setHWND(HWND hWnd);
 			HWND getHWND();
 			void setRC(LPCWSTR instance);
 			LPCWSTR getRC();
 		protected:
 			std::map<std::string, HIMAGELIST> ImageKey = {};
+			std::map<int, HBRUSH> ColorKey = {};
 			HWND hWnd;
 			LPCWSTR hinstance;
 			RessourceManager();
