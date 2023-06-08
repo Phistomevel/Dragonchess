@@ -36,6 +36,11 @@ namespace game {
 		const std::string Abstract::COLOR_WHITE = "red";
 		const std::string Abstract::COLOR_BLACK = "blue";
 
+		const std::string Abstract::TYPE_DEFAULT	="default";
+		const std::string Abstract::TYPE_SCELECTED	="scelected";
+		const std::string Abstract::TYPE_MOVE		="move_target";
+		const std::string Abstract::TYPE_CAPTURE	="capture_target";
+
 		Abstract::Abstract() 
 		{
 			this->type = Abstract::UNDEFINED;
@@ -101,7 +106,7 @@ namespace game {
 				int i, j, r, g, b;
 				i = (this->position.x + this->position.y) % 2;
 				j = this->position.z;
-				if (this->isScelected) {
+				if (this->state==Abstract::TYPE_SCELECTED) {
 					r = { (i == 0 && j == 0) * 227 +
 						(i == 1 && j == 0) * 255 + 
 						(i == 1 && j == 1) * 188 + 
@@ -144,17 +149,43 @@ namespace game {
 					FillRect(hdc, &fillrect, RM->getBrush(r, g, b));
 
 					ImageList_Draw(RM->getSprite(this->type + this->color), 0, hdc, 1, 1, ILD_TRANSPARENT);
+					return;
 				}
-				else {
+				if(this->state==::game::pieces::Abstract::TYPE_DEFAULT) {
 					r = (i == 0 && j == 0) * 227 + (i == 1 && j == 0) * 255 + (i == 1 && j == 1) * 188 + (i == 1 && j == 2) * 255;
 					g = (i == 0 && j == 0) * 19 + (i == 1 && j == 0) * 64 + (i == 0 && j == 1) * 124 + (i == 1 && j == 1) * 198 + (i == 0 && j == 2) * 255 + (i == 1 && j == 2) * 255;
 					b = (i == 0 && j == 0) * 19 + (i == 1 && j == 0) * 64 + (i == 0 && j == 1) * 0 + (i == 1 && j == 1) * 98 + (i == 0 && j == 2) * 235 + (i == 1 && j == 2) * 0 + (i == 1 && j == 2) * 255;
 					if (FillRect(hdc, &fillrect, RM->getBrush(r, g, b))) {
-						TRACE("heyooooo\n");
+						//TRACE("heyooooo\n");
 					}
 					if (ImageList_Draw(RM->getSprite(this->type + this->color), 0, hdc, 1, 1, ILD_TRANSPARENT)) {
-						TRACE("Drew sprite, error is elsewhere\n");
+						//TRACE("Drew sprite, error is elsewhere\n");
 					}
+					return;
+				}
+				if (this->state == ::game::pieces::Abstract::TYPE_MOVE) {
+					r = (10);
+					g = (255);
+					b = (40);
+					if (FillRect(hdc, &fillrect, RM->getBrush(r, g, b))) {
+						//TRACE("heyooooo\n");
+					}
+					if (ImageList_Draw(RM->getSprite(this->type + this->color), 0, hdc, 1, 1, ILD_TRANSPARENT)) {
+						//TRACE("Drew sprite, error is elsewhere\n");
+					}
+					return;
+				}
+				if (this->state == ::game::pieces::Abstract::TYPE_CAPTURE) {
+					r = (255);
+					g = (50);
+					b = (40);
+					if (FillRect(hdc, &fillrect, RM->getBrush(r, g, b))) {
+						//TRACE("heyooooo\n");
+					}
+					if (ImageList_Draw(RM->getSprite(this->type + this->color), 0, hdc, 1, 1, ILD_TRANSPARENT)) {
+						//TRACE("Drew sprite, error is elsewhere\n");
+					}
+					return;
 				}
 			}
 			else
@@ -174,15 +205,29 @@ namespace game {
 			return;
 		}
 		void Abstract::OnLButtonDown(UINT uint, CPoint point) {
-			TRACE(" I have been Clicked\n");
-//			::tools::MessageManager &MM = MM.getInstance();
-//			MM.sendMessage(::tools::MessageManager::ONCLICK,this, uint);
-			this->isScelected = true;
+			::tools::MessageManager &MM = MM.getInstance();
+			this->state = Abstract::TYPE_SCELECTED;
 			this->Invalidate();
+			Abstract& ref = *this;
+			MM.sendMessage(::tools::MessageManager::ONCLICK, this, uint);
 		}
 		void Abstract::OnRButtonDown(UINT uint, CPoint point) {
-			this->isScelected = false;
+			this->state = Abstract::TYPE_DEFAULT;
 			this->Invalidate();
+		}
+
+		void Abstract::setState(std::string type) {
+			this->state=type;
+			this->Invalidate();
+		}
+		std::string Abstract::getState() {
+			return this->state;
+		}
+		std::string Abstract::getPetrifiedBy() {
+			return this->petrifiedBy;
+		}
+		void Abstract::setPetrified(std::string petrificatorColor) { 
+			this->petrifiedBy = petrificatorColor;
 		}
 	}
 }

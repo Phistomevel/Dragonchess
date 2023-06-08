@@ -8,6 +8,7 @@ namespace game {
 		public:
 			Capture(::game::Moves move = { 0,0,0, ::game::Moves::MOVE_UNDEFINED }, ::game::Moves capture = { 0,0,0, ::game::Moves::MOVE_UNDEFINED });
 			virtual	~Capture();
+			bool operator==(const Capture& other) const;
 			::game::Moves move;
 			::game::Moves capture;
 		};

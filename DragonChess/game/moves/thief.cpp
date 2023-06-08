@@ -1,20 +1,17 @@
+#include "thief.h"
 #include <map>
-#include "dragon.h"
+#include <algorithm>
 #include "../moves.h"
-#include "abstract.h"
 namespace game {
     namespace moves {
-        
-        Dragon::~Dragon() {}
-        std::vector<::game::Moves> Dragon::getMoves(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+
+        Thief::Thief() {}
+        Thief::~Thief() {}
+        std::vector<::game::Moves> Thief::getMoves(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
-            ret.push_back(::game::Moves( 1, 0,0,"relative"));
-            ret.push_back(::game::Moves(-1, 0,0,"relative"));
-            ret.push_back(::game::Moves( 0, 1,0,"relative"));
-            ret.push_back(::game::Moves( 0,-1,0,"relative"));
             int i = 1;
-            while (i+ActivePiece.getPosition().x<12&&-i+ActivePiece.getPosition().y>=0) {
-                if (board.getPieceByField(i + ActivePiece.getPosition().x,-i + ActivePiece.getPosition().y,2).getType()==::game::pieces::Abstract::UNDEFINED) {
+            while (i + ActivePiece.getPosition().x < 12 && -i + ActivePiece.getPosition().y >= 0) {
+                if (board.getPieceByField(i + ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 1).getType() == ::game::pieces::Abstract::UNDEFINED) {
                     ret.push_back(::game::Moves(1 * i, -1 * i, 0, "relative"));
                 }
                 else {
@@ -23,8 +20,8 @@ namespace game {
                 i++;
             }
             i = 1;
-            while (i + ActivePiece.getPosition().x < 12 && i + ActivePiece.getPosition().y <8) {
-                if (board.getPieceByField(i + ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 2).getType() == ::game::pieces::Abstract::UNDEFINED) {
+            while (i + ActivePiece.getPosition().x < 12 && i + ActivePiece.getPosition().y < 8) {
+                if (board.getPieceByField(i + ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 1).getType() == ::game::pieces::Abstract::UNDEFINED) {
                     ret.push_back(::game::Moves(1 * i, 1 * i, 0, "relative"));
                 }
                 else {
@@ -33,8 +30,8 @@ namespace game {
                 i++;
             }
             i = 1;
-            while (-i + ActivePiece.getPosition().x >=0 && -i + ActivePiece.getPosition().y >= 0) {
-                if (board.getPieceByField(-i + ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 2).getType() == ::game::pieces::Abstract::UNDEFINED) {
+            while (-i + ActivePiece.getPosition().x >= 0 && -i + ActivePiece.getPosition().y >= 0) {
+                if (board.getPieceByField(-i + ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 1).getType() == ::game::pieces::Abstract::UNDEFINED) {
                     ret.push_back(::game::Moves(-1 * i, -1 * i, 0, "relative"));
                 }
                 else {
@@ -43,8 +40,8 @@ namespace game {
                 i++;
             }
             i = 1;
-            while (-i + ActivePiece.getPosition().x >=0 && i + ActivePiece.getPosition().y <8) {
-                if (board.getPieceByField(-i + ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 2).getType() == ::game::pieces::Abstract::UNDEFINED) {
+            while (-i + ActivePiece.getPosition().x >= 0 && i + ActivePiece.getPosition().y < 8) {
+                if (board.getPieceByField(-i + ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 1).getType() == ::game::pieces::Abstract::UNDEFINED) {
                     ret.push_back(::game::Moves(-1 * i, 1 * i, 0, "relative"));
                 }
                 else {
@@ -73,40 +70,35 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Dragon::getCaptures(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
-            std::vector<::game::moves::Capture> ret; 
-            ret.push_back(::game::moves::Capture(::game::Moves(1, 0, 0, "relative")));
-            ret.push_back(::game::moves::Capture(::game::Moves(-1, 0, 0, "relative")));
-            ret.push_back(::game::moves::Capture(::game::Moves(0, 1, 0, "relative")));
-            ret.push_back(::game::moves::Capture(::game::Moves(0, -1, 0, "relative")));
-            ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"),game::Moves(0,0,-1,"relative")));
+        std::vector<::game::moves::Capture> Thief::getCaptures(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+            std::vector<::game::moves::Capture> ret;
             int i = 1;
             while (i + ActivePiece.getPosition().x < 12 && -i + ActivePiece.getPosition().y >= 0) {
-                if (board.getPieceByField(i + ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 2).getType() != ::game::pieces::Abstract::UNDEFINED) {
+                if (board.getPieceByField(i + ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 1).getType() != ::game::pieces::Abstract::UNDEFINED) {
                     ret.push_back(::game::moves::Capture(::game::Moves(1 * i, -1 * i, 0, "relative")));
                     break;
                 }
                 i++;
             }
             i = 1;
-            while (-i + ActivePiece.getPosition().x >=0 && -i + ActivePiece.getPosition().y >= 0) {
-                if (board.getPieceByField(-i + ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 2).getType() != ::game::pieces::Abstract::UNDEFINED) {
+            while (-i + ActivePiece.getPosition().x >= 0 && -i + ActivePiece.getPosition().y >= 0) {
+                if (board.getPieceByField(-i + ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 1).getType() != ::game::pieces::Abstract::UNDEFINED) {
                     ret.push_back(::game::moves::Capture(::game::Moves(-1 * i, -1 * i, 0, "relative")));
                     break;
                 }
                 i++;
             }
             i = 1;
-            while (i + ActivePiece.getPosition().x < 12 && i + ActivePiece.getPosition().y <8) {
-                if (board.getPieceByField(i + ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 2).getType() != ::game::pieces::Abstract::UNDEFINED) {
+            while (i + ActivePiece.getPosition().x < 12 && i + ActivePiece.getPosition().y < 8) {
+                if (board.getPieceByField(i + ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 1).getType() != ::game::pieces::Abstract::UNDEFINED) {
                     ret.push_back(::game::moves::Capture(::game::Moves(1 * i, 1 * i, 0, "relative")));
                     break;
                 }
                 i++;
             }
             i = 1;
-            while (-i + ActivePiece.getPosition().x >=0 && i + ActivePiece.getPosition().y <8) {
-                if (board.getPieceByField(-i + ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 2).getType() != ::game::pieces::Abstract::UNDEFINED) {
+            while (-i + ActivePiece.getPosition().x >= 0 && i + ActivePiece.getPosition().y < 8) {
+                if (board.getPieceByField(-i + ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 1).getType() != ::game::pieces::Abstract::UNDEFINED) {
                     ret.push_back(::game::moves::Capture(::game::Moves(-1 * i, 1 * i, 0, "relative")));
                     break;
                 }
@@ -138,6 +130,6 @@ namespace game {
             }
             return ret;
         }
-        
+
     }
 }

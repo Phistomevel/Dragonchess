@@ -5,6 +5,8 @@
 #include "DragonChess.h"
 #include "renderer/plain/RessourceManager.h"
 #include "game/board.h"
+#include "tools/MessageManager.h"
+#include "Game.h"
 //@todo: reinsert, if going to add rendering
 #pragma comment (lib, "comctl32")
 
@@ -22,8 +24,9 @@ ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
-::renderer::plain::RessourceManager *RM =  (*RM).instance();// TODO: RM muss referenz auf die static instance sein
-::game::Board board;
+::renderer::plain::RessourceManager *RM =  (*RM).instance();
+//::game::Board board;
+Game MyGame;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -116,6 +119,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
+
+   ::tools::MessageManager& MM = MM.getInstance();
+   MM.registerObserver(&MyGame);
+   
    return TRUE;
 }
 
@@ -191,7 +198,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         //HWND pChild = GetWindow(hWnd,GW_CHILD);
         //CWnd* childAbstract = game::pieces::Abstract::FromHandle(pChild);
-        board.init();
+        MyGame.getBoard().init();
         //board.render();
         
         DefWindowProc(hWnd, message, wParam, lParam);

@@ -144,9 +144,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="game\moves\basilisk.h" />
     <ClInclude Include="game\moves\capture.h" />
     <ClInclude Include="game\moves\abstract.h" />
     <ClInclude Include="game\moves\factory.h" />
+    <ClInclude Include="game\moves\mage.h" />
+    <ClInclude Include="game\moves\oliphant.h" />
+    <ClInclude Include="game\moves\thief.h" />
+    <ClInclude Include="game\moves\unicorn.h" />
     <ClInclude Include="game\pieces\abstract.h" />
     <ClInclude Include="game\board.h" />
     <ClInclude Include="DragonChess.h" />
@@ -156,17 +161,24 @@
     <ClInclude Include="game\moves.h" />
     <ClInclude Include="game\moves\griffon.h" />
     <ClInclude Include="game\moves\dragon.h" />
+    <ClInclude Include="game\moves\nomoves.h" />
     <ClInclude Include="tools\MessageManager.h" />
     <ClInclude Include="renderer\plain\RessourceManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="game\moves\sylph.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="game\moves\warrior.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="game\moves\abstract.cpp" />
+    <ClCompile Include="game\moves\basilisk.cpp" />
     <ClCompile Include="game\moves\capture.cpp" />
     <ClCompile Include="game\moves\factory.cpp" />
+    <ClCompile Include="game\moves\mage.cpp" />
+    <ClCompile Include="game\moves\oliphant.cpp" />
+    <ClCompile Include="game\moves\thief.cpp" />
+    <ClCompile Include="game\moves\unicorn.cpp" />
     <ClCompile Include="game\pieces\abstract.cpp" />
     <ClCompile Include="game\board.cpp" />
     <ClCompile Include="DragonChess.cpp" />
@@ -176,8 +188,10 @@
     <ClCompile Include="game\moves.cpp" />
     <ClCompile Include="game\moves\griffon.cpp" />
     <ClCompile Include="game\moves\dragon.cpp" />
+    <ClCompile Include="game\moves\nomoves.cpp" />
     <ClCompile Include="tools\MessageManager.cpp" />
     <ClCompile Include="renderer\plain\RessourceManager.cpp" />
+    <ClCompile Include="game\moves\warrior.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DragonChess.rc" />

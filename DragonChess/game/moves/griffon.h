@@ -7,8 +7,8 @@ namespace game {
         {
         public:
             virtual ~Griffon();
-            virtual std::vector<::game::Moves> getMoves(int layer);
-            virtual std::vector<::game::moves::Capture> getCaptures(int layer);
+            std::vector<::game::Moves> getMoves(::game::Board board, ::game::pieces::Abstract& ActivePiece) override;
+            std::vector<::game::moves::Capture> getCaptures(::game::Board board, ::game::pieces::Abstract& ActivePiece) override;
         };
     }
 }

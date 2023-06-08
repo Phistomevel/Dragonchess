@@ -3,10 +3,11 @@
 #include <string>
 #include "../board/position.h"
 #include "../../resource.h"
-#include "../../DragonChess.h"
+#include "../../tools/MessageManager.h"
+//#include "../../DragonChess.h"
 #include "../../renderer/plain/RessourceManager.h"
-#include "../../resource.h"
-//#include "../../tools/MessageManager.h"
+//#include "../../resource.h"
+
 
 
 namespace game {
@@ -34,6 +35,12 @@ namespace game {
 
 			static const std::string COLOR_WHITE;
 			static const std::string COLOR_BLACK;
+
+
+			static const std::string TYPE_DEFAULT;
+			static const std::string TYPE_SCELECTED;
+			static const std::string TYPE_MOVE;
+			static const std::string TYPE_CAPTURE;
 			Abstract();
 			Abstract(std::string type, std::string color, int x, int y, int z);
 			virtual ~Abstract();
@@ -56,20 +63,23 @@ namespace game {
 			afx_msg LRESULT OnMyUpdate(WPARAM wParam, LPARAM lParam) ;
 			afx_msg void OnLButtonDown(UINT uint, CPoint point);
 			afx_msg void OnRButtonDown(UINT uint, CPoint point);
+
 			//BOOL PreCreateWindow(CREATESTRUCT& cs) override;
 			/*
 			*  @param position sets new position
 			*/
 			void setPosition(::game::board::Position position);
 			void render();
-
-
+			void setState(std::string type);
+			std::string getState();
+			std::string getPetrifiedBy();
+			void setPetrified(std::string petrificatorColor);
 		protected:
 			::game::board::Position position;
 			std::string type;
 			std::string color;
-			bool isScelected = false;
-			bool isPetrified = false;
+			std::string state = "default";
+			std::string petrifiedBy = "Undefined";
 			DECLARE_MESSAGE_MAP()
 			DECLARE_DYNCREATE(Abstract)
 		};

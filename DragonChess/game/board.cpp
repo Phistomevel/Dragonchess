@@ -95,17 +95,25 @@ namespace game {
 				this->field.push_back(column);
 			}
 			(this->field.at(5).at(6).at(2))->setType(pieces::Abstract::DRAGON);
+			(this->field.at(5).at(6).at(1))->setType(pieces::Abstract::OLIPHANT);
+			(this->field.at(4).at(6).at(1))->setType(pieces::Abstract::UNICORN);
+			(this->field.at(3).at(6).at(1))->setType(pieces::Abstract::MAGE);
+			(this->field.at(9).at(6).at(1))->setType(pieces::Abstract::THIEF);
+			//(this->field.at(5).at(6).at(1))->setColor(pieces::Abstract::COLOR_WHITE);
+			(this->field.at(5).at(6).at(2))->setColor(pieces::Abstract::COLOR_WHITE);
 			(this->field.at(0).at(0).at(2))->setType(pieces::Abstract::GRIFFON);
 			(this->field.at(1).at(1).at(2))->setType(pieces::Abstract::SYLPH);
 			(this->field.at(2).at(2).at(2))->setType(pieces::Abstract::GRIFFON);
-			(this->field.at(3).at(3).at(2))->setType(pieces::Abstract::BASILISK);
+			(this->field.at(4).at(3).at(0))->setType(pieces::Abstract::BASILISK);
 			(this->field.at(5).at(5).at(2))->setType(pieces::Abstract::SYLPH);
-			(this->field.at(3).at(3).at(2))->setColor(pieces::Abstract::COLOR_WHITE);
+			(this->field.at(5).at(5).at(1))->setType(pieces::Abstract::WARRIOR);
+			(this->field.at(5).at(5).at(2))->setColor(pieces::Abstract::COLOR_WHITE);
+			(this->field.at(4).at(3).at(0))->setColor(pieces::Abstract::COLOR_WHITE);
 
 			this->isInitialized = true;
 		}
 
-		::game::pieces::Abstract & Board::getPieceByField(int x, int y, int z) {
+		::game::pieces::Abstract& Board::getPieceByField(int x, int y, int z) {
 			return *(this->field.at(x).at(y).at(z));
 		}
 		void Board::movePiece(::game::pieces::Abstract* piece, int x, int y, int z) {
@@ -173,7 +181,7 @@ namespace game {
 			(this->field.at(0).at(0).at(2))->setType(pieces::Abstract::GRIFFON);
 			(this->field.at(1).at(1).at(2))->setType(pieces::Abstract::SYLPH);
 			(this->field.at(2).at(2).at(2))->setType(pieces::Abstract::GRIFFON);
-			(this->field.at(3).at(3).at(2))->setType(pieces::Abstract::BASILISK);
+			(this->field.at(4).at(3).at(2))->setType(pieces::Abstract::BASILISK);
 			(this->field.at(5).at(5).at(2))->setType(pieces::Abstract::SYLPH);
 			(this->field.at(3).at(3).at(2))->setColor(pieces::Abstract::COLOR_WHITE);
 			for (int i = 0; i < 12; i++) {
