@@ -19,13 +19,17 @@ namespace game {
 			return true;
 		}
 		bool Moves::operator>(const Moves& other) const {
-			if (this->x>other.x|| this->y > other.y|| this->z > other.z) {
+			int myHash = this->x * 2 + this->y * 3 + this->z * 5;
+			int otherHash = other.x * 2 + other.y * 3 + other.z * 5;
+			if (myHash>otherHash) {
 				return true;
 			}
 			return false;
 		}
 		bool Moves::operator<(const Moves& other) const {
-			if (this->x < other.x || this->y < other.y || this->z < other.z) {
+			int myHash = this->x * 2 + this->y * 3 + this->z * 5;
+			int otherHash = other.x * 2 + other.y * 3 + other.z * 5;
+			if (myHash < otherHash) {
 				return true;
 			}
 			return false;

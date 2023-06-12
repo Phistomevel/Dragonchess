@@ -19,9 +19,9 @@ namespace renderer {
 
         void RessourceManager::loadImages() {
             std::string mainAddress= "C:\\Users\\Nils\\source\\repos\\Dragonchess\\Dragonchess\\source\\";
-            std::string name[13] = {"Basilisk","Dragon","Griffon","Mage","Oliphant","Sylph","Unicorn","Warrior","Thief","Subboard","Skyboard","Earthboard","TEST"};
+            std::string name[19] = {"King","Hero","Cleric","Basilisk","Paladin","Dwarf","Elemental","Dragon","Griffon","Mage","Oliphant","Sylph","Unicorn","Warrior","Thief","Subboard","Skyboard","Earthboard","TEST"};
             std::string color[2] = { "red","blue" };
-            for (int i = 0; i < 9;i++) {
+            for (int i = 0; i < 16;i++) {
                 for (int j = 0; j < 2; j++) {
                     HBITMAP bitimage = (HBITMAP)LoadImageA(NULL, (mainAddress + name[i] +"_"+ color[j]+".bmp").c_str(), 0, 40, 40, LR_LOADFROMFILE);
                     HBITMAP bitmask = (HBITMAP)LoadImageA(NULL, (mainAddress + name[i] +"_mask.bmp").c_str(), 0, 40, 40, LR_LOADFROMFILE | LR_MONOCHROME);

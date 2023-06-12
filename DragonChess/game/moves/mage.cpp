@@ -102,6 +102,8 @@ namespace game {
 			}
 				   break;
 			}
+
+
 			int i = 1;
 			while (i + ActivePiece.getPosition().z < 3) {
 				if (board.getPieceByField(ActivePiece.getPosition().x, ActivePiece.getPosition().y, i + ActivePiece.getPosition().z).getType() == ::game::pieces::Abstract::UNDEFINED) {
@@ -127,6 +129,7 @@ namespace game {
 					ret[i].x += ActivePiece.getPosition().x;
 					ret[i].y += ActivePiece.getPosition().y;
 					ret[i].z += ActivePiece.getPosition().z;
+					ret[i].moveType = ::game::Moves::MOVE_ABSOLUTE;
 				}
 				if (!((ret[i].x >= 0 && ret[i].x < 12)
 					&& (ret[i].y >= 0 && ret[i].y < 8)
@@ -240,9 +243,11 @@ namespace game {
 					ret[i].move.x += ActivePiece.getPosition().x;
 					ret[i].move.y += ActivePiece.getPosition().y;
 					ret[i].move.z += ActivePiece.getPosition().z;
+					ret[i].move.moveType = ::game::Moves::MOVE_ABSOLUTE;
 					ret[i].capture.x += ActivePiece.getPosition().x;
 					ret[i].capture.y += ActivePiece.getPosition().y;
 					ret[i].capture.z += ActivePiece.getPosition().z;
+					ret[i].capture.moveType = ::game::Moves::MOVE_ABSOLUTE;
 				}
 				if (!(
 					ret[i].move.x >= 0 && ret[i].move.x < 12

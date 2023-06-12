@@ -51,7 +51,7 @@ void Game::hideMoves() {
 	std::map<::game::Moves, ::game::Moves> capturesToMoves;
 	for (auto element : captureList)
 	{
-		capturesToMoves.emplace(element.capture,element.move);
+		capturesToMoves.emplace(element.capture,element.move);//TODO fix whatever is going on with the mage and the dragon
 	}
 	//if()
 	return capturesToMoves.at(capture.capture);

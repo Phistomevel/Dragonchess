@@ -57,6 +57,7 @@ namespace game {
                     ret[i].x += ActivePiece.getPosition().x;
                     ret[i].y += ActivePiece.getPosition().y;
                     ret[i].z += ActivePiece.getPosition().z;
+                    ret[i].moveType = ::game::Moves::MOVE_ABSOLUTE;
                 }
                 if (!((ret[i].x >= 0 && ret[i].x < 12)
                     && (ret[i].y >= 0 && ret[i].y < 8)

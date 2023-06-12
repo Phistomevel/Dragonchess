@@ -1,6 +1,8 @@
 #include "board.h"
+//#include "../source/board.csv"
 #include <iostream>
 #include <fstream>
+#include "../tools/String.h"
 namespace game {
 		Board::Board() {
 
@@ -94,21 +96,35 @@ namespace game {
 				}
 				this->field.push_back(column);
 			}
-			(this->field.at(5).at(6).at(2))->setType(pieces::Abstract::DRAGON);
-			(this->field.at(5).at(6).at(1))->setType(pieces::Abstract::OLIPHANT);
-			(this->field.at(4).at(6).at(1))->setType(pieces::Abstract::UNICORN);
-			(this->field.at(3).at(6).at(1))->setType(pieces::Abstract::MAGE);
-			(this->field.at(9).at(6).at(1))->setType(pieces::Abstract::THIEF);
+
+			std::fstream myStream;
+			myStream.open("C:\\Users\\Nils\\source\\repos\\DragonChess\\DragonChess\\source\\board (2).csv", std::fstream::in);
+			char myLine[32];
+			bool streamOpen = myStream.is_open();
+			while (myStream.good())
+			{
+				myStream.getline(myLine,32);
+				std::vector<std::string> pieceInfo = tools::string::explode(myLine,',');
+				this->field.at(stoi(pieceInfo.at(0))).at(stoi(pieceInfo.at(1))).at(stoi(pieceInfo.at(2)))->setType(::tools::string::remove(pieceInfo.at(3),"\""));
+				this->field.at(stoi(pieceInfo.at(0))).at(stoi(pieceInfo.at(1))).at(stoi(pieceInfo.at(2)))->setColor(::tools::string::remove(pieceInfo.at(4), "\""));
+				TRACE(myLine);
+				TRACE("\n");
+			}
+			//(this->field.at(5).at(6).at(2))->setType(pieces::Abstract::DRAGON);
+			//(this->field.at(5).at(6).at(1))->setType(pieces::Abstract::OLIPHANT);
+			//(this->field.at(4).at(6).at(1))->setType(pieces::Abstract::UNICORN);
+			//(this->field.at(3).at(6).at(1))->setType(pieces::Abstract::MAGE);
+			//(this->field.at(9).at(6).at(1))->setType(pieces::Abstract::THIEF);
 			//(this->field.at(5).at(6).at(1))->setColor(pieces::Abstract::COLOR_WHITE);
-			(this->field.at(5).at(6).at(2))->setColor(pieces::Abstract::COLOR_WHITE);
-			(this->field.at(0).at(0).at(2))->setType(pieces::Abstract::GRIFFON);
-			(this->field.at(1).at(1).at(2))->setType(pieces::Abstract::SYLPH);
-			(this->field.at(2).at(2).at(2))->setType(pieces::Abstract::GRIFFON);
-			(this->field.at(4).at(3).at(0))->setType(pieces::Abstract::BASILISK);
-			(this->field.at(5).at(5).at(2))->setType(pieces::Abstract::SYLPH);
-			(this->field.at(5).at(5).at(1))->setType(pieces::Abstract::WARRIOR);
-			(this->field.at(5).at(5).at(2))->setColor(pieces::Abstract::COLOR_WHITE);
-			(this->field.at(4).at(3).at(0))->setColor(pieces::Abstract::COLOR_WHITE);
+			//(this->field.at(5).at(6).at(2))->setColor(pieces::Abstract::COLOR_WHITE);
+			//(this->field.at(0).at(0).at(2))->setType(pieces::Abstract::GRIFFON);
+			//(this->field.at(1).at(1).at(2))->setType(pieces::Abstract::SYLPH);
+			//(this->field.at(2).at(2).at(2))->setType(pieces::Abstract::GRIFFON);
+			//(this->field.at(4).at(3).at(0))->setType(pieces::Abstract::BASILISK);
+			//(this->field.at(5).at(5).at(2))->setType(pieces::Abstract::SYLPH);
+			//(this->field.at(5).at(5).at(1))->setType(pieces::Abstract::WARRIOR);
+			//(this->field.at(5).at(5).at(2))->setColor(pieces::Abstract::COLOR_WHITE);
+			//(this->field.at(4).at(3).at(0))->setColor(pieces::Abstract::COLOR_WHITE);
 
 			this->isInitialized = true;
 		}

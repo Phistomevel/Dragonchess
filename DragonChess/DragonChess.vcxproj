@@ -147,9 +147,13 @@
     <ClInclude Include="game\moves\basilisk.h" />
     <ClInclude Include="game\moves\capture.h" />
     <ClInclude Include="game\moves\abstract.h" />
+    <ClInclude Include="game\moves\cleric.h" />
+    <ClInclude Include="game\moves\dwarf.h" />
+    <ClInclude Include="game\moves\elemental.h" />
     <ClInclude Include="game\moves\factory.h" />
     <ClInclude Include="game\moves\mage.h" />
     <ClInclude Include="game\moves\oliphant.h" />
+    <ClInclude Include="game\moves\paladin.h" />
     <ClInclude Include="game\moves\thief.h" />
     <ClInclude Include="game\moves\unicorn.h" />
     <ClInclude Include="game\pieces\abstract.h" />
@@ -162,6 +166,7 @@
     <ClInclude Include="game\moves\griffon.h" />
     <ClInclude Include="game\moves\dragon.h" />
     <ClInclude Include="game\moves\nomoves.h" />
+    <ClInclude Include="tools\String.h" />
     <ClInclude Include="tools\MessageManager.h" />
     <ClInclude Include="renderer\plain\RessourceManager.h" />
     <ClInclude Include="Resource.h" />
@@ -174,9 +179,13 @@
     <ClCompile Include="game\moves\abstract.cpp" />
     <ClCompile Include="game\moves\basilisk.cpp" />
     <ClCompile Include="game\moves\capture.cpp" />
+    <ClCompile Include="game\moves\cleric.cpp" />
+    <ClCompile Include="game\moves\dwarf.cpp" />
+    <ClCompile Include="game\moves\elemental.cpp" />
     <ClCompile Include="game\moves\factory.cpp" />
     <ClCompile Include="game\moves\mage.cpp" />
     <ClCompile Include="game\moves\oliphant.cpp" />
+    <ClCompile Include="game\moves\paladin.cpp" />
     <ClCompile Include="game\moves\thief.cpp" />
     <ClCompile Include="game\moves\unicorn.cpp" />
     <ClCompile Include="game\pieces\abstract.cpp" />
@@ -189,6 +198,7 @@
     <ClCompile Include="game\moves\griffon.cpp" />
     <ClCompile Include="game\moves\dragon.cpp" />
     <ClCompile Include="game\moves\nomoves.cpp" />
+    <ClCompile Include="tools\String.cpp" />
     <ClCompile Include="tools\MessageManager.cpp" />
     <ClCompile Include="renderer\plain\RessourceManager.cpp" />
     <ClCompile Include="game\moves\warrior.cpp" />
@@ -200,6 +210,9 @@
     <Image Include="DragonChess.ico" />
     <Image Include="small.ico" />
     <Image Include="source\Subboard.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="source\board.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

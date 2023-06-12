@@ -12,6 +12,10 @@
 #include "mage.h"
 #include "thief.h"
 #include "basilisk.h"
+#include "dwarf.h"
+#include "cleric.h"
+#include "paladin.h"
+#include "elemental.h"
 namespace game {
 	namespace moves {
 		class Factory

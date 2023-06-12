@@ -42,6 +42,21 @@ namespace game {
 				//return &game::moves::Factory::myDragon;
 				return new game::moves::Basilisk;
 			}
+			if (typeName == game::pieces::Abstract::DWARF) {
+				//return &game::moves::Factory::myDragon;
+				return new game::moves::Dwarf;
+			}
+			if (typeName == game::pieces::Abstract::CLERIC) {
+				//return &game::moves::Factory::myDragon;
+				return new game::moves::Cleric;
+			}
+			if (typeName == game::pieces::Abstract::PALADIN) {
+				//return &game::moves::Factory::myDragon;
+				return new game::moves::Paladin;
+			}
+			if (typeName == game::pieces::Abstract::ELEMENTAL) {
+				return new game::moves::Elemental;
+			}
 			return new game::moves::NoMoves;
 		}
 	}
