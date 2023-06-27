@@ -19,8 +19,10 @@ protected:
 	::game::pieces::Abstract* ActivePiece;
 	void showMoves();
 	void hideMoves();
+	bool isThreatened(int x,int y,int z, ::game::Board *board=NULL);
 	::game::Moves getMovesFromCapture(::game::moves::Capture capture, std::vector<::game::moves::Capture> captureList);
 	bool VectorContains(std::vector<::game::Moves> moves, game::Moves targetMove);
 	bool VectorContains(std::vector<::game::moves::Capture> captures, game::moves::Capture targetCapture);
+	std::string ActiveColor;
 };
 

@@ -8,22 +8,43 @@ namespace game {
 
 		}
 		Board::~Board() {
-			/*for (auto layer : this->field) {
-				for (auto column : layer) {
-					for (auto &field : column) {
-						if (field) {
-							field->DestroyWindow();
-							delete field;
-							field = NULL;
+			if (!this->isInitialized)
+			{
+				for (auto layer : this->field) {
+					for (auto column : layer) {
+						for (auto& field : column) {
+							if (field) {
+								field->DestroyWindow();
+								delete field;
+								field = NULL;
+							}
 						}
+						column.clear();
 					}
-					column.clear();
+					layer.clear();
 				}
-				layer.clear();
+				this->field.clear();
 			}
-			this->field.clear();
-			*/
+			
+			
 		}
+		Board::Board(const Board& other) {
+			for (int i = 0; i < this->MAX_X; i++) {
+				std::vector<std::vector<::game::pieces::Abstract*>> column;
+				for (int j = 0; j < this->MAX_Y; j++) {
+					std::vector<::game::pieces::Abstract*> layer;
+					for (int k = 0; k < this->MAX_Z; k++) {
+
+						layer.push_back(new ::game::pieces::Abstract(other.field.at(i).at(j).at(k)->getType(), other.field.at(i).at(j).at(k)->getColor(), i, j, k));
+						layer.at(k)->setPetrified(other.field.at(i).at(j).at(k)->getPetrifiedBy());
+					}
+					column.push_back(layer);
+				}
+				this->field.push_back(column);
+			}
+		}
+
+
 		void game::Board::onresize(RECT newsize)
 		{
 			for (int i = 0; i < this->MAX_X; i++) {
@@ -110,6 +131,8 @@ namespace game {
 				TRACE(myLine);
 				TRACE("\n");
 			}
+			//place all the pieces on their places
+
 			//(this->field.at(5).at(6).at(2))->setType(pieces::Abstract::DRAGON);
 			//(this->field.at(5).at(6).at(1))->setType(pieces::Abstract::OLIPHANT);
 			//(this->field.at(4).at(6).at(1))->setType(pieces::Abstract::UNICORN);
@@ -217,4 +240,20 @@ namespace game {
 			}
 			EndPaint((*RM).getHWND(), &ps);
 		};
+
+		::game::pieces::Abstract& Board::getKing(std::string color) {
+			for (int i = 0; i < this->MAX_X; i++)
+			{
+				for (int j = 0; j < this->MAX_Y; j++)
+				{
+					for (int k = 0; k < this->MAX_Z; k++)
+					{
+						if (this->field.at(i).at(j).at(k)->getColor() == color && this->field.at(i).at(j).at(k)->getType() == ::game::pieces::Abstract::KING) {
+							field.at(i).at(j).at(k)->setPosition(::game::board::Position(i,j,k));
+							return *field.at(i).at(j).at(k);
+						}
+					}
+				}
+			}
+		}
 }

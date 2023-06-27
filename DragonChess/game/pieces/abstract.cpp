@@ -49,6 +49,14 @@ namespace game {
 			//this->cView->Create(szTitle,szWindowClass , WS_CHILD, rect, , 1 );
 		}
 
+		Abstract::Abstract(const Abstract& other)
+		{
+			this->type = other.type;
+			this->color = other.color;
+			this->position = other.position;
+			//this->cView->Create(szTitle,szWindowClass , WS_CHILD, rect, , 1 );
+		}
+
 		Abstract::Abstract(std::string type , std::string color, int x, int y, int z) {
 
 			this->type = type;

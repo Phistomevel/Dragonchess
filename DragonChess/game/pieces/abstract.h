@@ -1,13 +1,13 @@
 #pragma once
 #define MAX_LOADSTRING 100
 #include <string>
+#include <set>
 #include "../board/position.h"
 #include "../../resource.h"
 #include "../../tools/MessageManager.h"
 //#include "../../DragonChess.h"
 #include "../../renderer/plain/RessourceManager.h"
 //#include "../../resource.h"
-
 
 
 namespace game {
@@ -42,6 +42,7 @@ namespace game {
 			static const std::string TYPE_MOVE;
 			static const std::string TYPE_CAPTURE;
 			Abstract();
+			Abstract(const Abstract& other);
 			Abstract(std::string type, std::string color, int x, int y, int z);
 			virtual ~Abstract();
 

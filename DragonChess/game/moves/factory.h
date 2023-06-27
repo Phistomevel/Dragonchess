@@ -16,6 +16,8 @@
 #include "cleric.h"
 #include "paladin.h"
 #include "elemental.h"
+#include "hero.h"
+#include "king.h"
 namespace game {
 	namespace moves {
 		class Factory
@@ -23,11 +25,24 @@ namespace game {
 		public:
 			Factory();
 			~Factory();
-			static ::game::moves::Abstract* getMyMoves(std::string typeName);
+			static ::game::moves::Abstract& getMyMoves(std::string typeName);
 		protected:
-			//static const ::game::moves::Dragon myDragon;
-			//static const ::game::moves::Griffon myGriffon;
-			//static const ::game::moves::Sylph mySylph;
+			static ::game::moves::Dragon myDragon;
+			static ::game::moves::Griffon myGriffon;
+			static ::game::moves::Sylph mySylph;
+			static ::game::moves::Warrior myWarrior;
+			static ::game::moves::Oliphant myOliphant;
+			static ::game::moves::Mage myMage;
+			static ::game::moves::Unicorn myUnicorn;
+			static ::game::moves::Thief myThief;
+			static ::game::moves::Basilisk myBasilisk;
+			static ::game::moves::Dwarf myDwarf;
+			static ::game::moves::Cleric myCleric;
+			static ::game::moves::Paladin myPaladin;
+			static ::game::moves::Elemental myElemental;
+			static ::game::moves::Hero myHero;
+			static ::game::moves::King myKing;
+			static ::game::moves::NoMoves myNoMoves;
 
 		};
 	}

@@ -2,11 +2,12 @@
 #include "dragon.h"
 #include "../moves.h"
 #include "abstract.h"
+#include "../board.h"
 namespace game {
     namespace moves {
         
         Dragon::~Dragon() {}
-        std::vector<::game::Moves> Dragon::getMoves(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Dragon::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             ret.push_back(::game::Moves( 1, 0,0,"relative"));
             ret.push_back(::game::Moves(-1, 0,0,"relative"));
@@ -52,93 +53,109 @@ namespace game {
                 }
                 i++;
             }
-            for (int i = 0; i < ret.size(); i++) {//auto currMove : ret
+            for (int i = 0; i < ret.size(); i++) {
                 if (ret[i].moveType == ::game::Moves::MOVE_RELATIVE) {
                     ret[i].x += ActivePiece.getPosition().x;
                     ret[i].y += ActivePiece.getPosition().y;
                     ret[i].z += ActivePiece.getPosition().z;
-                    ret[i].moveType = ::game::Moves::MOVE_ABSOLUTE;
-                }
-                if (!((ret[i].x >= 0 && ret[i].x < 12)
-                    && (ret[i].y >= 0 && ret[i].y < 8)
-                    && (ret[i].z >= 0 && ret[i].z < 3))) {
-                    ret.erase(ret.begin() + i);
-                    i--;
-                }
-                else {
-                    if (board.getPieceByField(ret[i].x, ret[i].y, ret[i].z).getType() != ::game::pieces::Abstract::UNDEFINED) {
-                        ret.erase(ret.begin() + i);
-                        i--;
-                    }
                 }
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Dragon::getCaptures(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Dragon::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret; 
             ret.push_back(::game::moves::Capture(::game::Moves(1, 0, 0, "relative")));
             ret.push_back(::game::moves::Capture(::game::Moves(-1, 0, 0, "relative")));
             ret.push_back(::game::moves::Capture(::game::Moves(0, 1, 0, "relative")));
             ret.push_back(::game::moves::Capture(::game::Moves(0, -1, 0, "relative")));
             ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"),game::Moves(0,0,-1,"relative")));
+            ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"),game::Moves(1,0,-1,"relative")));
+            ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"),game::Moves(-1,0,-1,"relative")));
+            ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"),game::Moves(0,1,-1,"relative")));
+            ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"),game::Moves(0,-1,-1,"relative")));
             int i = 1;
             while (i + ActivePiece.getPosition().x < 12 && -i + ActivePiece.getPosition().y >= 0) {
+                ret.push_back(::game::moves::Capture(::game::Moves(1 * i, -1 * i, 0, "relative")));
                 if (board.getPieceByField(i + ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 2).getType() != ::game::pieces::Abstract::UNDEFINED) {
-                    ret.push_back(::game::moves::Capture(::game::Moves(1 * i, -1 * i, 0, "relative")));
                     break;
                 }
                 i++;
             }
             i = 1;
             while (-i + ActivePiece.getPosition().x >=0 && -i + ActivePiece.getPosition().y >= 0) {
+                ret.push_back(::game::moves::Capture(::game::Moves(-1 * i, -1 * i, 0, "relative")));
                 if (board.getPieceByField(-i + ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 2).getType() != ::game::pieces::Abstract::UNDEFINED) {
-                    ret.push_back(::game::moves::Capture(::game::Moves(-1 * i, -1 * i, 0, "relative")));
                     break;
                 }
                 i++;
             }
             i = 1;
             while (i + ActivePiece.getPosition().x < 12 && i + ActivePiece.getPosition().y <8) {
+                ret.push_back(::game::moves::Capture(::game::Moves(1 * i, 1 * i, 0, "relative")));
                 if (board.getPieceByField(i + ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 2).getType() != ::game::pieces::Abstract::UNDEFINED) {
-                    ret.push_back(::game::moves::Capture(::game::Moves(1 * i, 1 * i, 0, "relative")));
                     break;
                 }
                 i++;
             }
             i = 1;
             while (-i + ActivePiece.getPosition().x >=0 && i + ActivePiece.getPosition().y <8) {
+                ret.push_back(::game::moves::Capture(::game::Moves(-1 * i, 1 * i, 0, "relative")));
                 if (board.getPieceByField(-i + ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 2).getType() != ::game::pieces::Abstract::UNDEFINED) {
-                    ret.push_back(::game::moves::Capture(::game::Moves(-1 * i, 1 * i, 0, "relative")));
                     break;
                 }
                 i++;
             }
-            for (int i = 0; i < ret.size(); i++) {//auto currMove : ret
-                if (ret[i].move.moveType == ::game::Moves::MOVE_RELATIVE) {
-                    ret[i].move.x += ActivePiece.getPosition().x;
-                    ret[i].move.y += ActivePiece.getPosition().y;
-                    ret[i].move.z += ActivePiece.getPosition().z;
-                    ret[i].capture.x += ActivePiece.getPosition().x;
-                    ret[i].capture.y += ActivePiece.getPosition().y;
-                    ret[i].capture.z += ActivePiece.getPosition().z;
-                }
-                if (!(
-                    ret[i].move.x >= 0 && ret[i].move.x < 12
-                    && ret[i].move.y >= 0 && ret[i].move.y < 8
-                    && ret[i].move.z >= 0 && ret[i].move.z < 3)
-                    ) {
-                    ret.erase(ret.begin() + i);
-                    i--;
-                }
-                else {
-                    if (board.getPieceByField(ret[i].capture.x, ret[i].capture.y, ret[i].capture.z).getColor() == ActivePiece.getColor() || board.getPieceByField(ret[i].capture.x, ret[i].capture.y, ret[i].capture.z).getType() == game::pieces::Abstract::UNDEFINED) {
-                        ret.erase(ret.begin() + i);
-                        i--;
+            return ret;
+        }
+        std::vector<::game::moves::Capture> Dragon::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+            std::vector<::game::moves::Capture> ret;
+            if (ActivePiece.getPosition().x==1)
+            {
+                ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"), game::Moves(0, 0, 1, "relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"), game::Moves(1, 0, 1, "relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"), game::Moves(-1, 0, 1, "relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"), game::Moves(0, 1, 1, "relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"), game::Moves(0, -1, 1, "relative")));
+            }
+            if (ActivePiece.getPosition().x == 2) {
+                ret.push_back(::game::moves::Capture(::game::Moves(1, 0, 0, "relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(-1, 0, 0, "relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(0, 1, 0, "relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(0, -1, 0, "relative")));
+                int i = 1;
+                while (i + ActivePiece.getPosition().x < 12 && -i + ActivePiece.getPosition().y >= 0) {
+                    ret.push_back(::game::moves::Capture(::game::Moves(1 * i, -1 * i, 0, "relative")));
+                    if (board.getPieceByField(i + ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 2).getType() != ::game::pieces::Abstract::UNDEFINED) {
+                        break;
                     }
+                    i++;
+                }
+                i = 1;
+                while (-i + ActivePiece.getPosition().x >= 0 && -i + ActivePiece.getPosition().y >= 0) {
+                    ret.push_back(::game::moves::Capture(::game::Moves(-1 * i, -1 * i, 0, "relative")));
+                    if (board.getPieceByField(-i + ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 2).getType() != ::game::pieces::Abstract::UNDEFINED) {
+                        break;
+                    }
+                    i++;
+                }
+                i = 1;
+                while (i + ActivePiece.getPosition().x < 12 && i + ActivePiece.getPosition().y < 8) {
+                    ret.push_back(::game::moves::Capture(::game::Moves(1 * i, 1 * i, 0, "relative")));
+                    if (board.getPieceByField(i + ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 2).getType() != ::game::pieces::Abstract::UNDEFINED) {
+                        break;
+                    }
+                    i++;
+                }
+                i = 1;
+                while (-i + ActivePiece.getPosition().x >= 0 && i + ActivePiece.getPosition().y < 8) {
+                    ret.push_back(::game::moves::Capture(::game::Moves(-1 * i, 1 * i, 0, "relative")));
+                    if (board.getPieceByField(-i + ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 2).getType() != ::game::pieces::Abstract::UNDEFINED) {
+                        break;
+                    }
+                    i++;
                 }
             }
             return ret;
         }
-        
     }
 }

@@ -2,11 +2,12 @@
 #include "griffon.h"
 #include "../moves.h"
 #include "abstract.h"
+#include "../board.h"
 namespace game {
     namespace moves {
 
         Griffon::~Griffon() {}
-        std::vector<::game::Moves> Griffon::getMoves(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Griffon::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             std::map<int, std::vector<::game::Moves>> moves;
             moves = {
@@ -41,28 +42,16 @@ namespace game {
             }}
             };
             ret = moves[ActivePiece.getPosition().z];
-            for (int i = 0; i < ret.size(); i++) {//auto currMove : ret
+            for (int i = 0; i < ret.size(); i++) {
                 if (ret[i].moveType == ::game::Moves::MOVE_RELATIVE) {
                     ret[i].x += ActivePiece.getPosition().x;
                     ret[i].y += ActivePiece.getPosition().y;
                     ret[i].z += ActivePiece.getPosition().z;
                 }
-                if (!((ret[i].x >= 0 && ret[i].x < 12)
-                    && (ret[i].y >= 0 && ret[i].y < 8)
-                    && (ret[i].z >= 0 && ret[i].z < 3))) {
-                    ret.erase(ret.begin() + i);
-                    i--;
-                }
-                else {
-                    if (board.getPieceByField(ret[i].x, ret[i].y, ret[i].z).getType() != ::game::pieces::Abstract::UNDEFINED) {
-                        ret.erase(ret.begin() + i);
-                        i--;
-                    }
-                }
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Griffon::getCaptures(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Griffon::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
             std::map<int, std::vector<::game::moves::Capture>> captures;
             std::vector<::game::moves::Capture> ret;
             if (!captures.size()) {
@@ -99,32 +88,35 @@ namespace game {
                 };
             }
             ret = captures[ActivePiece.getPosition().z];
-            for (int i = 0; i < ret.size(); i++) {//auto currMove : ret
-                if (ret[i].move.moveType == ::game::Moves::MOVE_RELATIVE) {
-                    ret[i].move.x += ActivePiece.getPosition().x;
-                    ret[i].move.y += ActivePiece.getPosition().y;
-                    ret[i].move.z += ActivePiece.getPosition().z;
-                    ret[i].capture.x += ActivePiece.getPosition().x;
-                    ret[i].capture.y += ActivePiece.getPosition().y;
-                    ret[i].capture.z += ActivePiece.getPosition().z;
-                }
-                if (!(
-                    ret[i].move.x >= 0 && ret[i].move.x < 12
-                    && ret[i].move.y >= 0 && ret[i].move.y < 8
-                    && ret[i].move.z >= 0 && ret[i].move.z < 3)
-                    ) {
-                    ret.erase(ret.begin() + i);
-                    i--;
-                }
-                else {
-                    if (board.getPieceByField(ret[i].capture.x, ret[i].capture.y, ret[i].capture.z).getColor() == ActivePiece.getColor() || board.getPieceByField(ret[i].capture.x, ret[i].capture.y, ret[i].capture.z).getType() == game::pieces::Abstract::UNDEFINED) {
-                        ret.erase(ret.begin() + i);
-                        i--;
-                    }
-                }
-            }
             return ret;
         }
-
+        std::vector<::game::moves::Capture> Griffon::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+            std::vector<::game::moves::Capture> ret;
+            if (ActivePiece.getPosition().z==1) {
+                ret.push_back(::game::moves::Capture(::game::Moves( -1,-1,0,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(-1,1,0,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(1,-1,0,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(1,1,0,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(1,1,1,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(-1,1,1,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(1,-1,1,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(-1,-1,1,"relative")));
+            }
+            if (ActivePiece.getPosition().z == 2) {
+                ret.push_back(::game::moves::Capture(::game::Moves(-3, 2, 0,"relative")) );
+                ret.push_back(::game::moves::Capture(::game::Moves( 3, 2, 0,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(-3,-2, 0,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves( 3,-2, 0,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves( 2, -3,0,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(-2, 3, 0,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves( 2, 3, 0,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(-2,-3, 0,"relative")));
+                ret.push_back(::game::moves::Capture(::game::Moves(1,1,.1,"relative"  )));
+                ret.push_back(::game::moves::Capture(::game::Moves(-1,1,-1,"relative" )));
+                ret.push_back(::game::moves::Capture(::game::Moves(1,-1,-1,"relative" )));
+                ret.push_back(::game::moves::Capture(::game::Moves(-1,-1,-1,"relative")));
+            } 
+            return ret;
+        }
     }
 }

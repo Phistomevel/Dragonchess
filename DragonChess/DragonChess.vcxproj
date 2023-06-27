@@ -151,6 +151,8 @@
     <ClInclude Include="game\moves\dwarf.h" />
     <ClInclude Include="game\moves\elemental.h" />
     <ClInclude Include="game\moves\factory.h" />
+    <ClInclude Include="game\moves\hero.h" />
+    <ClInclude Include="game\moves\king.h" />
     <ClInclude Include="game\moves\mage.h" />
     <ClInclude Include="game\moves\oliphant.h" />
     <ClInclude Include="game\moves\paladin.h" />
@@ -183,6 +185,8 @@
     <ClCompile Include="game\moves\dwarf.cpp" />
     <ClCompile Include="game\moves\elemental.cpp" />
     <ClCompile Include="game\moves\factory.cpp" />
+    <ClCompile Include="game\moves\hero.cpp" />
+    <ClCompile Include="game\moves\king.cpp" />
     <ClCompile Include="game\moves\mage.cpp" />
     <ClCompile Include="game\moves\oliphant.cpp" />
     <ClCompile Include="game\moves\paladin.cpp" />
