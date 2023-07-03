@@ -9,7 +9,7 @@ namespace game {
         
         Sylph::Sylph() {}
         Sylph::~Sylph() {}
-        std::vector<::game::Moves> Sylph::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Sylph::getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             if (ActivePiece.getColor()==game::pieces::Abstract::COLOR_BLACK) {
                 switch (ActivePiece.getPosition().z)
@@ -75,7 +75,7 @@ namespace game {
 
             return ret;
         }
-        std::vector<::game::moves::Capture> Sylph::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Sylph::getCapturesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getColor()==::game::pieces::Abstract::COLOR_BLACK) {
                 switch (ActivePiece.getPosition().z)
@@ -114,7 +114,7 @@ namespace game {
             return ret;
         }
         
-        std::vector<::game::moves::Capture> Sylph::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Sylph::getThreatsInverted(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getColor() == ::game::pieces::Abstract::COLOR_BLACK) {
                 switch (ActivePiece.getPosition().z)

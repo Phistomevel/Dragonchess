@@ -7,7 +7,7 @@ namespace game {
     namespace moves {
         
         Dragon::~Dragon() {}
-        std::vector<::game::Moves> Dragon::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Dragon::getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             ret.push_back(::game::Moves( 1, 0,0,"relative"));
             ret.push_back(::game::Moves(-1, 0,0,"relative"));
@@ -62,7 +62,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Dragon::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Dragon::getCapturesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret; 
             ret.push_back(::game::moves::Capture(::game::Moves(1, 0, 0, "relative")));
             ret.push_back(::game::moves::Capture(::game::Moves(-1, 0, 0, "relative")));
@@ -107,7 +107,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Dragon::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Dragon::getThreatsInverted(::game::Board& board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getPosition().x==1)
             {

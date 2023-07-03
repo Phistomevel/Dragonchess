@@ -8,7 +8,7 @@ namespace game {
 
         Warrior::Warrior() {}
         Warrior::~Warrior() {}
-        std::vector<::game::Moves> Warrior::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Warrior::getMovesRaw(::game::Board& board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             if (ActivePiece.getColor()==::game::pieces::Abstract::COLOR_BLACK)
             {
@@ -26,7 +26,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Warrior::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Warrior::getCapturesRaw(::game::Board& board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getColor() == ::game::pieces::Abstract::COLOR_BLACK)
             {
@@ -39,9 +39,9 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Warrior::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Warrior::getThreatsInverted(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
-            if (ActivePiece.getColor() == ::game::pieces::Abstract::COLOR_BLACK)
+            if (ActivePiece.getColor() != ::game::pieces::Abstract::COLOR_BLACK)
             {
                 ret.push_back(::game::moves::Capture(::game::Moves(1, 1, 0, "relative")));
                 ret.push_back(::game::moves::Capture(::game::Moves(-1, 1, 0, "relative")));

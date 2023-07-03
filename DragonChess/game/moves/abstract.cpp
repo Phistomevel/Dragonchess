@@ -5,7 +5,7 @@ namespace game {
 #pragma message("including game::moves::Abstract")
 		Abstract::Abstract() {}
 		Abstract::~Abstract() {}
-		std::vector<::game::Moves> Abstract::getMoves(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Abstract::getMoves(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
 			std::vector<::game::Moves> ret = this->getMovesRaw(board, ActivePiece);
             for (int i = 0; i < ret.size(); i++) {//auto currMove : ret
                 if (!((ret[i].x >= 0 && ret[i].x < 12)
@@ -23,7 +23,7 @@ namespace game {
             }
                 return ret;
 		}
-		std::vector<::game::moves::Capture> Abstract::getCaptures(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+		std::vector<::game::moves::Capture> Abstract::getCaptures(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret = getCapturesRaw(board, ActivePiece);
             for (int i = 0; i < ret.size(); i++) {//auto currMove : ret
                 if (ret[i].move.moveType == ::game::Moves::MOVE_RELATIVE) {

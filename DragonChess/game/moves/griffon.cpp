@@ -7,7 +7,7 @@ namespace game {
     namespace moves {
 
         Griffon::~Griffon() {}
-        std::vector<::game::Moves> Griffon::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Griffon::getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             std::map<int, std::vector<::game::Moves>> moves;
             moves = {
@@ -51,7 +51,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Griffon::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Griffon::getCapturesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::map<int, std::vector<::game::moves::Capture>> captures;
             std::vector<::game::moves::Capture> ret;
             if (!captures.size()) {
@@ -90,7 +90,7 @@ namespace game {
             ret = captures[ActivePiece.getPosition().z];
             return ret;
         }
-        std::vector<::game::moves::Capture> Griffon::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Griffon::getThreatsInverted(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getPosition().z==1) {
                 ret.push_back(::game::moves::Capture(::game::Moves( -1,-1,0,"relative")));

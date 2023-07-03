@@ -8,7 +8,7 @@ namespace game {
 
         Elemental::Elemental() {}
         Elemental::~Elemental() {}
-        std::vector<::game::Moves> Elemental::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Elemental::getMovesRaw(::game::Board& board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             if (ActivePiece.getPosition().z == 0)
             {
@@ -99,7 +99,7 @@ namespace game {
 
             return ret;
         }
-        std::vector<::game::moves::Capture> Elemental::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Elemental::getCapturesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getPosition().z == 0)
             {
@@ -178,7 +178,7 @@ namespace game {
 
             return ret;
         }
-        std::vector<::game::moves::Capture> Elemental::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Elemental::getThreatsInverted(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             
             if (ActivePiece.getPosition().z==1) {

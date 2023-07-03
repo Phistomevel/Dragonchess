@@ -8,7 +8,7 @@ namespace game {
 
         Basilisk::Basilisk() {}
         Basilisk::~Basilisk() {}
-        std::vector<::game::Moves> Basilisk::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Basilisk::getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             if (ActivePiece.getColor()==::game::pieces::Abstract::COLOR_BLACK)
             {
@@ -32,7 +32,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Basilisk::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Basilisk::getCapturesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getColor() == ::game::pieces::Abstract::COLOR_BLACK)
             {
@@ -47,7 +47,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Basilisk::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Basilisk::getThreatsInverted(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getPosition().z!=0){
                 return ret;

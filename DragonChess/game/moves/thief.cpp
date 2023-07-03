@@ -8,7 +8,7 @@ namespace game {
 
         Thief::Thief() {}
         Thief::~Thief() {}
-        std::vector<::game::Moves> Thief::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Thief::getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             int i = 1;
             while (i + ActivePiece.getPosition().x < 12 && -i + ActivePiece.getPosition().y >= 0) {
@@ -59,7 +59,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Thief::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Thief::getCapturesRaw(::game::Board& board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             int i = 1;
             while (i + ActivePiece.getPosition().x < 12 && -i + ActivePiece.getPosition().y >= 0) {
@@ -99,7 +99,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Thief::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Thief::getThreatsInverted(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             return this->getCapturesRaw(board, ActivePiece);
         }
     }

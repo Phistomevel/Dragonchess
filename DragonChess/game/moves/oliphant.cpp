@@ -8,7 +8,7 @@ namespace game {
 
         Oliphant::Oliphant() {}
         Oliphant::~Oliphant() {}
-        std::vector<::game::Moves> Oliphant::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Oliphant::getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
            
             int i = 1;
@@ -61,7 +61,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Oliphant::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Oliphant::getCapturesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
            
             int i = 1;
@@ -104,7 +104,7 @@ namespace game {
 
             return ret;
         }
-        std::vector<::game::moves::Capture> Oliphant::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Oliphant::getThreatsInverted(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getPosition().z==1)
             {

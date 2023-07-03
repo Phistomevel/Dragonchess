@@ -8,7 +8,7 @@ namespace game {
 
         Hero::Hero() {}
         Hero::~Hero() {}
-        std::vector<::game::Moves> Hero::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Hero::getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             if (ActivePiece.getPosition().z==1)
             {
@@ -38,7 +38,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Hero::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Hero::getCapturesRaw(::game::Board& board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getPosition().z == 1)
             {
@@ -61,7 +61,7 @@ namespace game {
             ret.push_back(::game::Moves(-1, -1, -1, ::game::Moves::MOVE_RELATIVE));
             return ret;
         }
-        std::vector<::game::moves::Capture> Hero::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Hero::getThreatsInverted(::game::Board& board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getPosition().z == 1)
             {

@@ -8,7 +8,7 @@ namespace game {
 
         Unicorn::Unicorn() {}
         Unicorn::~Unicorn() {}
-        std::vector<::game::Moves> Unicorn::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Unicorn::getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             ret.push_back(::game::Moves(-2, 1,0,"relative"));
             ret.push_back(::game::Moves( 2, 1,0,"relative"));
@@ -27,7 +27,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Unicorn::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Unicorn::getCapturesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             ret.push_back(::game::moves::Capture(::game::Moves(-2, 1, 0, "relative")));
             ret.push_back(::game::moves::Capture(::game::Moves(2, 1, 0, "relative")));
@@ -39,7 +39,7 @@ namespace game {
             ret.push_back(::game::moves::Capture(::game::Moves(1, -2, 0, "relative")));
             return ret;
         }
-        std::vector<::game::moves::Capture> Unicorn::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Unicorn::getThreatsInverted(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             return this->getCapturesRaw(board, ActivePiece);
         }
     }

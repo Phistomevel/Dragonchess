@@ -8,7 +8,7 @@ namespace game {
 
         King::King() {}
         King::~King() {}
-        std::vector<::game::Moves> King::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> King::getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             if (ActivePiece.getPosition().z==1)
             {
@@ -32,7 +32,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> King::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> King::getCapturesRaw(::game::Board& board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             
 
@@ -51,7 +51,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> King::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> King::getThreatsInverted(::game::Board& board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getPosition().z == 1)
             {

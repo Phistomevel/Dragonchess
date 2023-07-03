@@ -8,7 +8,7 @@ namespace game {
 
         Paladin::Paladin() {}
         Paladin::~Paladin() {}
-        std::vector<::game::Moves> Paladin::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Paladin::getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             
             if (ActivePiece.getPosition().z == 1)
@@ -56,7 +56,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Paladin::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Paladin::getCapturesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getPosition().z==1)
             {
@@ -97,7 +97,7 @@ namespace game {
 
             return ret;
         }
-        std::vector<::game::moves::Capture> Paladin::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Paladin::getThreatsInverted(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             
             return this->getCapturesRaw(board, ActivePiece);
         }

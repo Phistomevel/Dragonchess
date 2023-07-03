@@ -8,7 +8,7 @@ namespace game {
 
         Dwarf::Dwarf() {}
         Dwarf::~Dwarf() {}
-        std::vector<::game::Moves> Dwarf::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::Moves> Dwarf::getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::Moves> ret;
             if (ActivePiece.getColor()==::game::pieces::Abstract::COLOR_BLACK) {
                 ret.push_back(::game::Moves(0, -1, 0, ::game::Moves::MOVE_RELATIVE));
@@ -28,7 +28,7 @@ namespace game {
             }
             return ret;
         }
-        std::vector<::game::moves::Capture> Dwarf::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Dwarf::getCapturesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getColor() == ::game::pieces::Abstract::COLOR_BLACK) {
                 ret.push_back(::game::Moves(1, -1, 0, ::game::Moves::MOVE_RELATIVE));
@@ -45,7 +45,7 @@ namespace game {
 
             return ret;
         }
-        std::vector<::game::moves::Capture> Dwarf::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+        std::vector<::game::moves::Capture> Dwarf::getThreatsInverted(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
             if (ActivePiece.getPosition().z==0) {
                 if (ActivePiece.getColor() == ::game::pieces::Abstract::COLOR_BLACK) {

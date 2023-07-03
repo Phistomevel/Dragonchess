@@ -8,7 +8,7 @@ namespace game {
 
 		Mage::Mage() {}
 		Mage::~Mage() {}
-		std::vector<::game::Moves> Mage::getMovesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+		std::vector<::game::Moves> Mage::getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
 			std::vector<::game::Moves> ret;
 			switch (ActivePiece.getPosition().z)
 			{
@@ -134,7 +134,7 @@ namespace game {
 			}
 			return ret;
 		}
-		std::vector<::game::moves::Capture> Mage::getCapturesRaw(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+		std::vector<::game::moves::Capture> Mage::getCapturesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
 			std::vector<::game::moves::Capture> ret;
 			switch (ActivePiece.getPosition().z)
 			{
@@ -238,7 +238,7 @@ namespace game {
 
 			return ret;
 		}
-		std::vector<::game::moves::Capture> Mage::getThreatsInverted(::game::Board board, ::game::pieces::Abstract& ActivePiece) {
+		std::vector<::game::moves::Capture> Mage::getThreatsInverted(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
 			std::vector<::game::moves::Capture> ret;
 			
 			switch (ActivePiece.getPosition().z)

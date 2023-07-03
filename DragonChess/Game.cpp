@@ -94,7 +94,7 @@ void Game::showMoves() {
 
 
 		std::string typeOfMovingPiece = ActivePiece->getType();
-		boardAfterCapture.getPieceByField(ActivePiece->getPosition().x, ActivePiece->getPosition().y, ActivePiece->getPosition().z).setType(ActivePiece->getType());
+		boardAfterCapture.getPieceByField(ActivePiece->getPosition().x, ActivePiece->getPosition().y, ActivePiece->getPosition().z).setType(::game::pieces::Abstract::UNDEFINED);
 		boardAfterCapture.getPieceByField(CurrMove.x, CurrMove.y, CurrMove.z).setType(typeOfMovingPiece);
 		boardAfterCapture.getPieceByField(CurrMove.x, CurrMove.y, CurrMove.z).setColor(this->ActivePiece->getColor());
 		::game::pieces::Abstract& king = boardAfterCapture.getKing(this->ActiveColor);
