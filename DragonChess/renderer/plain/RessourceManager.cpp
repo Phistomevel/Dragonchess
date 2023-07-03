@@ -18,7 +18,12 @@ namespace renderer {
 
 
         void RessourceManager::loadImages() {
-            std::string mainAddress= "C:\\Users\\Nils\\source\\repos\\Dragonchess\\Dragonchess\\source\\";
+            WCHAR path[MAX_PATH];
+            GetModuleFileNameW(NULL, path, MAX_PATH);
+            std::wstring stringPath(path);
+            stringPath = stringPath.substr(0, stringPath.length() - 25);
+            stringPath.append(L"DragonChess\\source\\");
+            std::string mainAddress(stringPath.begin(),stringPath.end());
             std::string name[19] = {"King","Hero","Cleric","Basilisk","Paladin","Dwarf","Elemental","Dragon","Griffon","Mage","Oliphant","Sylph","Unicorn","Warrior","Thief","Subboard","Skyboard","Earthboard","TEST"};
             std::string color[2] = { "red","blue" };
             for (int i = 0; i < 16;i++) {

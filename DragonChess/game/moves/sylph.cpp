@@ -82,8 +82,8 @@ namespace game {
                 {
                 case 2:
                 {
-                    ret.push_back(game::moves::Capture(::game::Moves(0, -1, 0, "relative"), ::game::Moves(0, -1, 0, "relative")));
-                    ret.push_back(game::moves::Capture(::game::Moves(0, 0, -1, "relative"), ::game::Moves(0, -1, 0, "relative")));
+                    ret.push_back(game::moves::Capture(::game::Moves(0, -1, 0, "relative")));
+                    ret.push_back(game::moves::Capture(::game::Moves(0, 0, -1, "relative")));
                 }
                 break;
                 case 1:
@@ -126,6 +126,9 @@ namespace game {
                 }
                 break;
                 case 2:
+                {
+                    ret.push_back(game::moves::Capture(::game::Moves(0, -1, 0, "relative"), ::game::Moves(0, -1, 0, "relative")));
+                }
                     break;
                 case 0:
                     break;
@@ -144,6 +147,10 @@ namespace game {
                 }
                 break;
                 case 2:
+                {
+
+                    ret.push_back(game::moves::Capture(::game::Moves(0, 1, 0, "relative"), ::game::Moves(0, 1, 0, "relative")));
+                }
                     break;
                 case 0:
                     break;

@@ -52,7 +52,7 @@ namespace game {
             if (ActivePiece.getPosition().z!=0){
                 return ret;
             }
-            if (ActivePiece.getColor()==::game::pieces::Abstract::COLOR_BLACK) {
+            if (ActivePiece.getColor()!=::game::pieces::Abstract::COLOR_BLACK) {
                 ret.push_back(::game::moves::Capture(::game::moves::Capture(::game::Moves(0, 1, 0, "relative"))));
                 ret.push_back(::game::moves::Capture(::game::moves::Capture(::game::Moves(1, 1, 0, "relative"))));
                 ret.push_back(::game::moves::Capture(::game::moves::Capture(::game::Moves(-1, 1, 0, "relative"))));
@@ -61,7 +61,6 @@ namespace game {
                 ret.push_back(::game::Moves(0, -1, 0, "relative"));
                 ret.push_back(::game::Moves(1, -1, 0, "relative"));
                 ret.push_back(::game::Moves(-1, -1, 0, "relative"));
-                ret.push_back(::game::Moves(0, 1, 0, "relative"));
             }
             return ret;
         }

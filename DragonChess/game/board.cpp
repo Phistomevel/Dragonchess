@@ -119,7 +119,12 @@ namespace game {
 			}
 
 			std::fstream myStream;
-			myStream.open("C:\\Users\\Nils\\source\\repos\\DragonChess\\DragonChess\\source\\board (2).csv", std::fstream::in);
+			WCHAR path[MAX_PATH];
+			GetModuleFileNameW(NULL, path, MAX_PATH);
+			std::wstring stringPath(path);
+			stringPath = stringPath.substr(0,stringPath.length()-25);
+			stringPath.append(L"DragonChess\\source\\board (2).csv");
+			myStream.open(stringPath, std::fstream::in);
 			char myLine[32];
 			bool streamOpen = myStream.is_open();
 			while (myStream.good())
@@ -128,8 +133,8 @@ namespace game {
 				std::vector<std::string> pieceInfo = tools::string::explode(myLine,',');
 				this->field.at(stoi(pieceInfo.at(0))).at(stoi(pieceInfo.at(1))).at(stoi(pieceInfo.at(2)))->setType(::tools::string::remove(pieceInfo.at(3),"\""));
 				this->field.at(stoi(pieceInfo.at(0))).at(stoi(pieceInfo.at(1))).at(stoi(pieceInfo.at(2)))->setColor(::tools::string::remove(pieceInfo.at(4), "\""));
-				TRACE(myLine);
-				TRACE("\n");
+				//TRACE(myLine);
+				//TRACE("\n");
 			}
 			//place all the pieces on their places
 
