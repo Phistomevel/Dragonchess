@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "game/board/bitboard.h"
 
 Game::Game() {
 	this->ActivePiece=NULL;

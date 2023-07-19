@@ -143,6 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="game\board\bitboard.h" />
+    <ClInclude Include="player\abstract.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="game\moves\basilisk.h" />
     <ClInclude Include="game\moves\capture.h" />
@@ -177,6 +179,8 @@
     <ClInclude Include="game\moves\warrior.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="game\board\bitboard.cpp" />
+    <ClCompile Include="player\abstract.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="game\moves\abstract.cpp" />
     <ClCompile Include="game\moves\basilisk.cpp" />
