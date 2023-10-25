@@ -170,6 +170,7 @@
     <ClInclude Include="game\moves\griffon.h" />
     <ClInclude Include="game\moves\dragon.h" />
     <ClInclude Include="game\moves\nomoves.h" />
+    <ClInclude Include="tools\networkManager.h" />
     <ClInclude Include="tools\String.h" />
     <ClInclude Include="tools\MessageManager.h" />
     <ClInclude Include="renderer\plain\RessourceManager.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="game\moves\griffon.cpp" />
     <ClCompile Include="game\moves\dragon.cpp" />
     <ClCompile Include="game\moves\nomoves.cpp" />
+    <ClCompile Include="tools\networkManager.cpp" />
     <ClCompile Include="tools\String.cpp" />
     <ClCompile Include="tools\MessageManager.cpp" />
     <ClCompile Include="renderer\plain\RessourceManager.cpp" />

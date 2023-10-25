@@ -62,13 +62,13 @@ namespace renderer {
             return this->ImageKey[spriteName];
         }
         HBRUSH RessourceManager::getBrush(int r, int g, int b) {
-            int index = r*65536+g*256+b;
-            if (this->ColorKey.count(index)==0) {
+            int hashIndex = r*65536+g*256+b;
+            if (this->ColorKey.count(hashIndex)==0) {
                 COLORREF color = RGB(r, g, b);
                 HBRUSH newBrush = CreateSolidBrush(color);
-                this->ColorKey.emplace(std::make_pair(index, newBrush));
+                this->ColorKey.emplace(std::make_pair(hashIndex, newBrush));
             }
-            return this->ColorKey[index];
+            return this->ColorKey[hashIndex];
         }
 
         void RessourceManager::setHWND(HWND hWNd) {

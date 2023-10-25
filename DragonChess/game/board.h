@@ -6,6 +6,7 @@
 #include "moves/capture.h"
 #include "moves/factory.h"
 #include "moves/abstract.h"
+#include "board/bitboard.h"
 //include <Windows.h>
 #include "../renderer/plain/RessourceManager.h"
 /*namespace renderer {
@@ -43,6 +44,8 @@ namespace game{
 	protected:
 		bool isInitialized= false;
 		bool isInitializing= false;
+		::game::board::Bitboard redPieces;
+		::game::board::Bitboard bluePieces;
 		static const int MAX_X = 12;
 		static const int MAX_Y = 8;
 		static const int MAX_Z = 3;
@@ -51,4 +54,3 @@ namespace game{
 
 	};
 }
-

@@ -109,7 +109,7 @@ namespace game {
         }
         std::vector<::game::moves::Capture> Dragon::getThreatsInverted(::game::Board& board, ::game::pieces::Abstract& ActivePiece) {
             std::vector<::game::moves::Capture> ret;
-            if (ActivePiece.getPosition().x==1)
+            if (ActivePiece.getPosition().z==1)
             {
                 ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"), game::Moves(0, 0, 1, "relative")));
                 ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"), game::Moves(1, 0, 1, "relative")));
@@ -117,7 +117,7 @@ namespace game {
                 ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"), game::Moves(0, 1, 1, "relative")));
                 ret.push_back(::game::moves::Capture(::game::Moves(0, 0, 0, "relative"), game::Moves(0, -1, 1, "relative")));
             }
-            if (ActivePiece.getPosition().x == 2) {
+            if (ActivePiece.getPosition().z == 2) {
                 ret.push_back(::game::moves::Capture(::game::Moves(1, 0, 0, "relative")));
                 ret.push_back(::game::moves::Capture(::game::Moves(-1, 0, 0, "relative")));
                 ret.push_back(::game::moves::Capture(::game::Moves(0, 1, 0, "relative")));
