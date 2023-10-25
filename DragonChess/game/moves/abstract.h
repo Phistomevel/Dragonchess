@@ -15,6 +15,7 @@ namespace game {
 		class Abstract
 		{
 		public:
+			explicit operator bool();
 			Abstract();
 			virtual ~Abstract();
 			virtual std::vector<::game::Moves> getMovesRaw(::game::Board &board, ::game::pieces::Abstract& ActivePiece) = 0;

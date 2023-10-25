@@ -5,6 +5,7 @@ namespace game {
 #pragma message("including game::moves::Abstract")
 		Abstract::Abstract() {}
 		Abstract::~Abstract() {}
+        Abstract::operator bool() { return true; }//prbly not what i want, will have to do for testing //upon further inspection, this isn't needed at all. Still keeping it just in case   
         std::vector<::game::Moves> Abstract::getMoves(::game::Board &board, ::game::pieces::Abstract& ActivePiece) {
 			std::vector<::game::Moves> ret = this->getMovesRaw(board, ActivePiece);
             for (int i = 0; i < ret.size(); i++) {//auto currMove : ret

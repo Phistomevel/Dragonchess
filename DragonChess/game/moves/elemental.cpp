@@ -183,22 +183,22 @@ namespace game {
             
             if (ActivePiece.getPosition().z==1) {
                 if (ActivePiece.getPosition().x - 1 >= 0) {
-                    if (board.getPieceByField(ActivePiece.getPosition().x - 1, ActivePiece.getPosition().y, ActivePiece.getPosition().z)) {
+                    if (board.getPieceByField(ActivePiece.getPosition().x - 1, ActivePiece.getPosition().y, ActivePiece.getPosition().z-1)) {
                         ret.push_back(::game::Moves(-1, 0, -1, ::game::Moves::MOVE_RELATIVE));
                     }
                 }
                 if (ActivePiece.getPosition().y - 1 >= 0) {
-                    if (board.getPieceByField(ActivePiece.getPosition().x, ActivePiece.getPosition().y - 1, ActivePiece.getPosition().z)) {
+                    if (board.getPieceByField(ActivePiece.getPosition().x, ActivePiece.getPosition().y - 1, ActivePiece.getPosition().z-1)) {
                         ret.push_back(::game::Moves(0, -1, -1, ::game::Moves::MOVE_RELATIVE));
                     }
                 }
                 if (ActivePiece.getPosition().x + 1 < 12) {
-                    if (board.getPieceByField(ActivePiece.getPosition().x + 1, ActivePiece.getPosition().y, ActivePiece.getPosition().z)) {
+                    if (board.getPieceByField(ActivePiece.getPosition().x + 1, ActivePiece.getPosition().y, ActivePiece.getPosition().z-1)) {
                         ret.push_back(::game::Moves(1, 0, -1, ::game::Moves::MOVE_RELATIVE));
                     }
                 }
                 if (ActivePiece.getPosition().y + 1 < 8) {
-                    if (board.getPieceByField(ActivePiece.getPosition().x, ActivePiece.getPosition().y + 1, ActivePiece.getPosition().z)) {
+                    if (board.getPieceByField(ActivePiece.getPosition().x, ActivePiece.getPosition().y + 1, ActivePiece.getPosition().z-1)) {
                         ret.push_back(::game::Moves(0, 1, -1, ::game::Moves::MOVE_RELATIVE));
                     }
                 }

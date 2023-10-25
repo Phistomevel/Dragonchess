@@ -44,6 +44,7 @@ namespace game {
 			Abstract();
 			Abstract(const Abstract& other);
 			Abstract(std::string type, std::string color, int x, int y, int z);
+			explicit operator bool();
 			virtual ~Abstract();
 
 			void setColor(std::string color);

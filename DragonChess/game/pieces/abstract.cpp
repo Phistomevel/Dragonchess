@@ -65,6 +65,12 @@ namespace game {
 		}
 		Abstract::~Abstract() {
 		}
+		Abstract::operator bool() {
+			if (this->type==::game::pieces::Abstract::UNDEFINED) {
+				return false;
+			}
+			return true;
+		}
 
 		void Abstract::setColor(std::string color) {
 			this->color = color;
