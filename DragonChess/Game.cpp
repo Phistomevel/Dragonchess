@@ -1,17 +1,33 @@
 #include "Game.h"
 
-Game::Game() {
+Game::Game(){
 	this->ActivePiece=NULL;
 	this->ActiveColor = "blue";
+	//this->ActivePlayer = ::player::Abstract(); //TODO: deliver with constructor on game start via reference
 }
-Game::~Game() {}
+Game::~Game() {
+	
+}
 void Game::run() {
+	
+}
 
+void Game::setPlayer1(::player::Abstract *player1) {
+	this->player1 = player1;
+	this->ActivePlayer = player1;//TODO change this shit, it shouldnt be here
+	std::string somestring = this->ActivePlayer->getType();
+	std::wstring widestr = std::wstring(somestring.begin(), somestring.end());
+	const wchar_t* widecstr = widestr.c_str();
+	OutputDebugString(widecstr);
+}
+
+void Game::setPlayer2(::player::Abstract* player2) {
+	this->player2 = player2;
 }
 
 bool Game::isThreatened(int x, int y, int z, ::game::Board *board) {
 	if (board == NULL) {
-		board = &this->board;
+		return false;
 	}
 	std::vector<std::string> allTypes = { ::game::pieces::Abstract::BASILISK,
 	::game::pieces::Abstract::CLERIC,
@@ -153,14 +169,19 @@ void Game::hideMoves() {
 void Game::onEvent(game::pieces::Abstract* sender) {
 	std::vector<::game::Moves>	ActiveMoves;
 	std::vector<::game::moves::Capture> ActiveCaptures;
+	std::string activePlayerType = this->ActivePlayer->getType();
 	if (!this->ActivePiece) {
-		if (sender->getType() != game::pieces::Abstract::UNDEFINED&&sender->getColor()==this->ActiveColor) {
-			this->ActivePiece = sender;
-			this->showMoves();
-		}
-		else {
-			sender->OnRButtonDown(NULL, NULL);
-		}
+		if (sender->getType() != game::pieces::Abstract::UNDEFINED && 
+			sender->getColor()==this->ActiveColor && 
+			this->ActivePlayer->getType() == ::player::Abstract::TYPE_HUMAN_LOCAL) 
+			{
+				this->ActivePiece = sender;
+				this->showMoves();
+			}
+		else 
+			{
+				sender->OnRButtonDown(NULL, NULL);
+			}
 		return;
 	}
 	::game::moves::Abstract& moveTypeObj = ::game::moves::Factory::getMyMoves(this->ActivePiece->getType());
@@ -249,6 +270,10 @@ void Game::onEvent(game::pieces::Abstract* sender) {
 			/*Move piece to new position*/
 			
 			sender->Invalidate();
+			if (this->board.isStale(this->ActiveColor)) {
+				TRACE("weellllll, you cant move anymore");
+				//this->onEvent(); TODO: END THE GAME
+			}
 			return;
 		}
 	}

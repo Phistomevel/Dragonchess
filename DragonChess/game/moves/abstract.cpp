@@ -43,7 +43,7 @@ namespace game {
                     ret[i].capture.x >= 0 && ret[i].capture.x < 12
                     && ret[i].capture.y >= 0 && ret[i].capture.y < 8
                     && ret[i].capture.z >= 0 && ret[i].capture.z < 3)
-                    ) {
+                    ) {//check if move leads of board
                     ret.erase(ret.begin() + i);
                     i--;
                 }

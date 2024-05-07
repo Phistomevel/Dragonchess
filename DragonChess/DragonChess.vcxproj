@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="game\board\bitboard.h" />
+    <ClInclude Include="player\humanPlayer.h" />
     <ClInclude Include="player\abstract.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="game\moves\basilisk.h" />
@@ -181,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game\board\bitboard.cpp" />
+    <ClCompile Include="player\humanPlayer.cpp" />
     <ClCompile Include="player\abstract.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="game\moves\abstract.cpp" />

@@ -7,6 +7,8 @@
 #include "game/board.h"
 #include "tools/MessageManager.h"
 #include "Game.h"
+#include "player/abstract.h"
+#include "player/humanPlayer.h"
 //@todo: reinsert, if going to add rendering
 #pragma comment (lib, "comctl32")
 
@@ -26,7 +28,11 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 ::renderer::plain::RessourceManager *RM =  (*RM).instance();
 //::game::Board board;
+
 Game MyGame;
+
+::player::HumanPlayer player1;
+::player::HumanPlayer player2;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -122,7 +128,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    ::tools::MessageManager& MM = MM.getInstance();
    MM.registerObserver(&MyGame);
-   
+   MyGame.setPlayer1(&player1);
+   MyGame.setPlayer2(&player2);
    return TRUE;
 }
 

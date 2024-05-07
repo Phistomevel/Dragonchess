@@ -1,4 +1,5 @@
 #include "board.h"
+#include "../Game.h"
 //#include "../source/board.csv"
 #include <iostream>
 #include <fstream>
@@ -44,6 +45,43 @@ namespace game {
 			}
 		}
 
+		bool Board::isStale(std::string activeColor) {
+			for (int x = 0; x < Board::MAX_X; x++)
+			{
+				for (int y = 0; y < Board::MAX_Y; y++)
+				{
+					for (int z = 0; z < Board::MAX_Z; z++)
+					{
+						if (this->field[x][y][z]->getColor() == activeColor)
+						{
+							game::moves::Abstract& MoveTypeObj = ::game::moves::Factory::getMyMoves(this->field[x][y][z]->getType());
+							std::vector<::game::moves::Capture> activeCaptures= MoveTypeObj.getCaptures(*this, *this->field[x][y][z]);
+							std::vector<::game::Moves> activeMoves= MoveTypeObj.getMoves(*this, *this->field[x][y][z]);
+							for (auto currMove : activeMoves) {
+								Board boardAftermove(*this);
+								boardAftermove.getPieceByField(currMove.x, currMove.y, currMove.z).setType(this->field[x][y][z]->getType());
+								boardAftermove.getPieceByField(x, y, z).setType(::game::pieces::Abstract::UNDEFINED);
+								if (!::Game::isThreatened(boardAftermove.getKing(activeColor).getPosition().x, boardAftermove.getKing(activeColor).getPosition().y, boardAftermove.getKing(activeColor).getPosition().z, &boardAftermove)) {
+									return false;
+								}
+								
+							}
+							for (auto currCapture:activeCaptures) {
+								Board boardAfterCapture(*this);
+								boardAfterCapture.getPieceByField(currCapture.move.x, currCapture.move.y, currCapture.move.z).setType(this->field[x][y][z]->getType());
+								boardAfterCapture.getPieceByField(currCapture.capture.x, currCapture.capture.y, currCapture.capture.z).setType(::game::pieces::Abstract::UNDEFINED);
+								boardAfterCapture.getPieceByField(x, y, z).setType(::game::pieces::Abstract::UNDEFINED);
+								if (!::Game::isThreatened(boardAfterCapture.getKing(activeColor).getPosition().x, boardAfterCapture.getKing(activeColor).getPosition().y, boardAfterCapture.getKing(activeColor).getPosition().z, &boardAfterCapture)) {
+									return false;
+								}
+							}
+							
+						}
+					}
+				}
+			}
+			return true;
+		}
 
 		void game::Board::onresize(RECT newsize)
 		{

@@ -33,6 +33,7 @@ namespace game{
 		Board();
 		~Board();
 		Board(const Board& other);
+		bool isStale(std::string activeColor);
 		virtual ::game::pieces::Abstract& getPieceByField(int x, int y, int z);
 		void onresize(RECT newsize);
 		virtual void movePiece(::game::pieces::Abstract* piece, int x, int y, int z);

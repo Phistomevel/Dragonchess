@@ -105,40 +105,44 @@ namespace game {
             {
                 int i = 1;
                 while (i + ActivePiece.getPosition().x < 12 && i <= 2) {
-                    if (board.getPieceByField(i + ActivePiece.getPosition().x, ActivePiece.getPosition().y, 0).getType() == ::game::pieces::Abstract::UNDEFINED) {
-                        ret.push_back(::game::Moves(1 * i, 0, 0, ::game::Moves::MOVE_RELATIVE));
+                    if (board.getPieceByField(i + ActivePiece.getPosition().x, ActivePiece.getPosition().y, 0).getType() == ::game::pieces::Abstract::UNDEFINED) 
+                    {//only break when there is a piece in the way
                     }
                     else {
+                        ret.push_back(::game::Moves(1 * i, 0, 0, ::game::Moves::MOVE_RELATIVE));
                         break;
                     }
                     i++;
                 }
                 i = 1;
                 while (-i + ActivePiece.getPosition().x >=0 && i <= 2) {
-                    if (board.getPieceByField(-i + ActivePiece.getPosition().x, ActivePiece.getPosition().y, 0).getType() == ::game::pieces::Abstract::UNDEFINED) {
-                        ret.push_back(::game::Moves(-1 * i, 0, 0, ::game::Moves::MOVE_RELATIVE));
+                    if (board.getPieceByField(-i + ActivePiece.getPosition().x, ActivePiece.getPosition().y, 0).getType() == ::game::pieces::Abstract::UNDEFINED) 
+                    {//only break when there is a piece in the way
                     }
                     else {
+                        ret.push_back(::game::Moves(-1 * i, 0, 0, ::game::Moves::MOVE_RELATIVE));
                         break;
                     }
                     i++;
                 }
                 i = 1;
                 while (i + ActivePiece.getPosition().y < 8 && i <= 2) {
-                    if (board.getPieceByField(ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 0).getType() == ::game::pieces::Abstract::UNDEFINED) {
-                        ret.push_back(::game::Moves(0, 1 * i, 0, ::game::Moves::MOVE_RELATIVE));
+                    if (board.getPieceByField(ActivePiece.getPosition().x, i + ActivePiece.getPosition().y, 0).getType() == ::game::pieces::Abstract::UNDEFINED) 
+                    {//only break when there is a piece in the way
                     }
                     else {
+                        ret.push_back(::game::Moves(0, 1 * i, 0, ::game::Moves::MOVE_RELATIVE));
                         break;
                     }
                     i++;
                 }
                 i = 1;
                 while (-i + ActivePiece.getPosition().y >=0 && i <= 2) {
-                    if (board.getPieceByField(ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 0).getType() == ::game::pieces::Abstract::UNDEFINED) {
-                        ret.push_back(::game::Moves(0, -1 * i, 0, ::game::Moves::MOVE_RELATIVE));
+                    if (board.getPieceByField(ActivePiece.getPosition().x, -i + ActivePiece.getPosition().y, 0).getType() == ::game::pieces::Abstract::UNDEFINED) 
+                    {//only break when there is a piece in the way
                     }
                     else {
+                        ret.push_back(::game::Moves(0, -1 * i, 0, ::game::Moves::MOVE_RELATIVE));
                         break;
                     }
                     i++;
